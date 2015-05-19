@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS Game (
 -- ------------------------------------------------
 DROP TABLE IF EXISTS Book;
 CREATE TABLE IF NOT EXISTS Book (
+    book_id INT(9) NOT NULL AUTO_INCREMENT,
     signature VARCHAR(20) NOT NULL,
     title VARCHAR(100) NOT NULL,
     author VARCHAR(100),
@@ -96,7 +97,7 @@ CREATE TABLE IF NOT EXISTS Book (
     classification VARCHAR(100),
     image VARCHAR(100),
     is_active TINYINT(1),
-    PRIMARY KEY(signature)
+    PRIMARY KEY(book_id)
 );
 
 -- ------------------------------------------------
@@ -125,13 +126,13 @@ DROP TABLE IF EXISTS Loan;
 CREATE TABLE IF NOT EXISTS Loan (
     loan_id SERIAL,
     user VARCHAR(50) NOT NULL,
-    book VARCHAR(20) NOT NULL,
+    book INT(9) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     returned TINYINT(1) NOT NULL,
     PRIMARY KEY(loan_id),
     FOREIGN KEY(user) REFERENCES User(username),
-    FOREIGN KEY(book) REFERENCES Book(signature)
+    FOREIGN KEY(book) REFERENCES Book(book_id)
 );
 
 -- ------------------------------------------------
@@ -156,12 +157,12 @@ CREATE TABLE IF NOT EXISTS Message (
 DROP TABLE IF EXISTS Recommendation;
 CREATE TABLE IF NOT EXISTS Recommendation (
     recom_id SERIAL,
-    book VARCHAR(20) NOT NULL,
+    book INT(9) NOT NULL,
     start_date DATE NOT NULL,
     recom_author VARCHAR(100),
     is_active TINYINT(1) NOT NULL,
     PRIMARY KEY(recom_id),
-    FOREIGN KEY(book) REFERENCES Book(signature)
+    FOREIGN KEY(book) REFERENCES Book(book_id)
 );
 
 -- ------------------------------------------------

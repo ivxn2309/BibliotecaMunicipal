@@ -12,6 +12,11 @@
 )); ?>
 
 	<div class="row">
+		<?php echo $form->label($model,'book_id'); ?>
+		<?php echo $form->textField($model,'book_id'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'signature'); ?>
 		<?php echo $form->textField($model,'signature',array('size'=>20,'maxlength'=>20)); ?>
 	</div>

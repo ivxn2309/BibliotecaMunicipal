@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'loan':
  * @property string $loan_id
  * @property string $user
- * @property string $book
+ * @property integer $book
  * @property string $start_date
  * @property string $end_date
  * @property integer $returned
@@ -34,9 +34,8 @@ class Loan extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user, book, start_date, end_date, returned', 'required'),
-			array('returned', 'numerical', 'integerOnly'=>true),
+			array('book, returned', 'numerical', 'integerOnly'=>true),
 			array('user', 'length', 'max'=>50),
-			array('book', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('loan_id, user, book, start_date, end_date, returned', 'safe', 'on'=>'search'),
@@ -91,7 +90,7 @@ class Loan extends CActiveRecord
 
 		$criteria->compare('loan_id',$this->loan_id,true);
 		$criteria->compare('user',$this->user,true);
-		$criteria->compare('book',$this->book,true);
+		$criteria->compare('book',$this->book);
 		$criteria->compare('start_date',$this->start_date,true);
 		$criteria->compare('end_date',$this->end_date,true);
 		$criteria->compare('returned',$this->returned);

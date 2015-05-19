@@ -4,6 +4,7 @@
  * This is the model class for table "book".
  *
  * The followings are the available columns in table 'book':
+ * @property integer $book_id
  * @property string $signature
  * @property string $title
  * @property string $author
@@ -42,7 +43,7 @@ class Book extends CActiveRecord
 			array('volume', 'length', 'max'=>5),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('signature, title, author, volume, copy, classification, image, is_active', 'safe', 'on'=>'search'),
+			array('book_id, signature, title, author, volume, copy, classification, image, is_active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,6 +66,7 @@ class Book extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'book_id' => 'Book',
 			'signature' => 'Signature',
 			'title' => 'Title',
 			'author' => 'Author',
@@ -94,6 +96,7 @@ class Book extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('book_id',$this->book_id);
 		$criteria->compare('signature',$this->signature,true);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('author',$this->author,true);

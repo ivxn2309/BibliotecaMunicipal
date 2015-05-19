@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'recommendation':
  * @property string $recom_id
- * @property string $book
+ * @property integer $book
  * @property string $start_date
  * @property string $recom_author
  * @property integer $is_active
@@ -32,8 +32,7 @@ class Recommendation extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('book, start_date, is_active', 'required'),
-			array('is_active', 'numerical', 'integerOnly'=>true),
-			array('book', 'length', 'max'=>20),
+			array('book, is_active', 'numerical', 'integerOnly'=>true),
 			array('recom_author', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -86,7 +85,7 @@ class Recommendation extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('recom_id',$this->recom_id,true);
-		$criteria->compare('book',$this->book,true);
+		$criteria->compare('book',$this->book);
 		$criteria->compare('start_date',$this->start_date,true);
 		$criteria->compare('recom_author',$this->recom_author,true);
 		$criteria->compare('is_active',$this->is_active);

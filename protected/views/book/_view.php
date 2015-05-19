@@ -5,8 +5,12 @@
 
 <div class="view">
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('book_id')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->book_id), array('view', 'id'=>$data->book_id)); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('signature')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->signature), array('view', 'id'=>$data->signature)); ?>
+	<?php echo CHtml::encode($data->signature); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
@@ -29,11 +33,11 @@
 	<?php echo CHtml::encode($data->classification); ?>
 	<br />
 
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('image')); ?>:</b>
 	<?php echo CHtml::encode($data->image); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('is_active')); ?>:</b>
 	<?php echo CHtml::encode($data->is_active); ?>
 	<br />

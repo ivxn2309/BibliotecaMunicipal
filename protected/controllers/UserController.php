@@ -159,7 +159,7 @@ class UserController extends Controller
 				'htmlOptions' => array('nowrap'=>'nowrap'),
 				'class'=>'booster.widgets.TbButtonColumn',
 				'viewButtonUrl'=>'Yii::app()->createUrl("user/view/", array("id"=>$data->username))',
-				'updateButtonUrl'=>null,
+				'updateButtonUrl'=>'Yii::app()->createUrl("")',
 				'deleteButtonUrl'=>null,
 			)
 		);

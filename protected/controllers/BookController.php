@@ -71,7 +71,7 @@ class BookController extends Controller
 		{
 			$model->attributes=$_POST['Book'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->signature));
+				$this->redirect(array('view','id'=>$model->book_id));
 		}
 
 		$this->render('create',array(
@@ -95,7 +95,7 @@ class BookController extends Controller
 		{
 			$model->attributes=$_POST['Book'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->signature));
+				$this->redirect(array('view','id'=>$model->book_id));
 		}
 
 		$this->render('update',array(
