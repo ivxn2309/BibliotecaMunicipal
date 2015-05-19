@@ -95,7 +95,7 @@
 		<div class="grid col-full mq2-col-full">
 			<?php echo $content; ?>
 		</div>
-		<!-- Slider
+		<!--
 		 <div class="slider grid col-one-half mq2-col-full">
 		   <div class="flexslider">
 		     <div class="slides">
@@ -125,9 +125,9 @@
 		            </div>
 		   </div>
 		 </div>
-		
-		 </section>
 		-->
+		 </section>
+		
 	
 	<section class="services grid-wrap">
 		<header class="grid col-full">
