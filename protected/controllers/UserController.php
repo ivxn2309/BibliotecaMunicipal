@@ -121,23 +121,31 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		
+		//Se obtienen todos los registros de la tabla usuarios
 		$models=User::model()->findAll();
 		$arreglo = array();
+		//Se recorre la lista de usuarios
 		for($i=0;$i<sizeOf($models);$i++){
-			$testSubject = new UserEntity();
-			$testSubject->id=$i;
-			$testSubject->username=$models[$i]->username;
-			$testSubject->firstname=$models[$i]->firstname;
-			$testSubject->surnames=$models[$i]->surnames;
-			$testSubject->address=$models[$i]->address;
-			$testSubject->phone=$models[$i]->phone;
-			$testSubject->age=$models[$i]->age;
-			$testSubject->guarantor=$models[$i]->guarantor;
-			$testSubject->email=$models[$i]->email;
-			$arreglo[$i] = $testSubject;
+			//Si el usuario actual esta activo y no es bibliotecario
+			if($models[$i]->is_active == 1 && $models[$i]->usertype == 0){
+				//Se genera un objeto de tipo UserEntity con los atributos deseados
+				$testSubject = new UserEntity();
+				$testSubject->id=$i;
+				$testSubject->username=$models[$i]->username;
+				$testSubject->firstname=$models[$i]->firstname;
+				$testSubject->surnames=$models[$i]->surnames;
+				$testSubject->address=$models[$i]->address;
+				$testSubject->phone=$models[$i]->phone;
+				$testSubject->age=$models[$i]->age;
+				$testSubject->guarantor=$models[$i]->guarantor;
+				$testSubject->email=$models[$i]->email;
+				//El objeto es agregado a un segundo arreglo
+				$arreglo[$i] = $testSubject;
+			}			
 		}
+		//Se genera un CarrayDataProvider a partir del nuevo arreglo
 		$gridDataProvider = new CArrayDataProvider($arreglo);
+		//Se definen las columnas y opciones
 		$gridColumns = array(
 			array('name'=>'username', 'header'=>'Username'),
 			array('name'=>'firstname', 'header'=>'First name'),
@@ -150,7 +158,7 @@ class UserController extends Controller
 			array(
 				'htmlOptions' => array('nowrap'=>'nowrap'),
 				'class'=>'booster.widgets.TbButtonColumn',
-				'viewButtonUrl'=>null,
+				'viewButtonUrl'=>'Yii::app()->createUrl("user/view/", array("id"=>$data->username))',
 				'updateButtonUrl'=>null,
 				'deleteButtonUrl'=>null,
 			)
@@ -186,10 +194,22 @@ class UserController extends Controller
 	 */
 	public function loadModel($id)
 	{
+		/*
+		//Se obtienen todos los registros de la tabla usuarios
+		$users=User::model()->findAll();
+		for($i=0; $i < sizeOf($users); $i++) {
+			if($users[$i]->username===$id) {
+				return $users[$i];
+			}
+		}
+		throw new CHttpException(404,'The requested page does not exist.');
+		return null;
+		*/
 		$model=User::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
+		
 	}
 
 	/**
