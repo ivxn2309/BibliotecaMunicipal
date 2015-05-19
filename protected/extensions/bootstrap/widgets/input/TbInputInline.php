@@ -7,7 +7,7 @@
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  */
 
-Yii::import('bootstrap.widgets.input.TbInputVertical');
+Yii::import('booster.widgets.input.TbInputVertical');
 
 /**
  *## TbInputInline class
@@ -25,7 +25,6 @@ class TbInputInline extends TbInputVertical
 	 */
 	protected function dropDownList()
 	{
-		echo $this->getLabel();
 		echo $this->form->dropDownList($this->model, $this->attribute, $this->data, $this->htmlOptions);
 	}
 
@@ -70,7 +69,6 @@ class TbInputInline extends TbInputVertical
 	protected function maskedTextField()
 	{
 		$this->setPlaceholder();
-		$this->htmlOptions['placeholder'] = $this->model->getAttributeLabel($this->attribute);
 		echo $this->getPrepend();
 		echo $this->form->maskedTextField($this->model, $this->attribute, $this->data, $this->htmlOptions);
 		echo $this->getAppend();
@@ -83,7 +81,6 @@ class TbInputInline extends TbInputVertical
 	protected function typeAheadField()
 	{
 		$this->setPlaceholder();
-		$this->htmlOptions['placeholder'] = $this->model->getAttributeLabel($this->attribute);
 		echo $this->getPrepend();
 		echo $this->form->typeAheadField($this->model, $this->attribute, $this->data, $this->htmlOptions);
 		echo $this->getAppend();
@@ -109,7 +106,7 @@ class TbInputInline extends TbInputVertical
         echo $this->setPlaceholder();
         echo $this->getPrepend();
         $this->widget(
-            'bootstrap.widgets.TbDatePicker',
+            'booster.widgets.TbDatePicker',
             array(
                 'model' => $this->model,
                 'attribute' => $this->attribute,
@@ -142,7 +139,7 @@ class TbInputInline extends TbInputVertical
         echo $this->setPlaceholder();
         echo $this->getPrepend();
         $this->widget(
-            'bootstrap.widgets.TbDateTimePicker',
+            'booster.widgets.TbDateTimePicker',
             array(
                 'model' => $this->model,
                 'attribute' => $this->attribute,
@@ -155,9 +152,43 @@ class TbInputInline extends TbInputVertical
         echo $this->getError() . $this->getHint();
     }
 
+     /**
+     * Renders a dateRange field.
+     * @return string the rendered content
+     * @author Hrumpa
+     */
+    protected function dateRangeField()
+    {
+    	if (isset($this->htmlOptions['options'])) {
+			$options = $this->htmlOptions['options'];
+			unset($this->htmlOptions['options']);
+		}
+
+		if (isset($options['callback'])) {
+			$callback = $options['callback'];
+			unset($options['callback']);
+		}
+
+        echo $this->setPlaceholder();
+		echo $this->getPrepend();
+		$this->widget(
+			'booster.widgets.TbDateRangePicker',
+			array(
+				'model' => $this->model,
+				'attribute' => $this->attribute,
+				'options' => isset($options) ? $options : array(),
+				'callback' => isset($callback) ? $callback : '',
+				'htmlOptions' => $this->htmlOptions,
+			)
+		);
+		echo $this->getAppend();
+		echo $this->getError() . $this->getHint();
+    }
+	
+
 	protected function setPlaceholder()
 	{
-		if (empty($this->htmlOptions['placeholder'])) {
+		if (!isset($this->htmlOptions['placeholder'])) {
 			$this->htmlOptions['placeholder'] = $this->model->getAttributeLabel($this->attribute);
 		}
 	}

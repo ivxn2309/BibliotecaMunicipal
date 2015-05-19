@@ -1,5 +1,24 @@
-YiiBooster 2.0.0
-================
+YiiBooster 
+==========
+
+[![Travis CI](https://travis-ci.org/clevertech/YiiBooster.svg?branch=master)](https://travis-ci.org/clevertech/YiiBooster)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/clevertech/YiiBooster/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/clevertech/YiiBooster/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/clevertech/YiiBooster/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/clevertech/YiiBooster/?branch=master)
+
+[![Latest Stable Version](https://poser.pugx.org/clevertech/yii-booster/v/stable.png)](https://github.com/clevertech/YiiBooster/tree/3.0.1) [![Total Downloads](https://poser.pugx.org/clevertech/yii-booster/downloads.png)](https://packagist.org/packages/clevertech/yii-booster) [![Latest Unstable Version](https://poser.pugx.org/clevertech/yii-booster/v/unstable.png)](https://github.com/clevertech/YiiBooster/tree/master) [![License](https://poser.pugx.org/clevertech/yii-booster/license.png)](https://github.com/clevertech/YiiBooster/blob/master/LICENSE)
+
+---
+
+**This is the master branch, containing work in progress on the next release. 
+Do not think that it's a production ready version which you can safely clone into your project.
+If you want the latest point release, check out the `4.0.1` release**
+
+---
+
+**4.x.x is based on twitter Bootstrap 3.1.1 or later. 
+If you want to use Bootstrap 2.3.2, please check out the latest `3.x.x` release**
+
+---
 
 YiiBooster is a widget toolkit for [Yii web framework](http://www.yiiframework.com).
 Its main purpose is to ease building UI in Yii-based web applications utilizing the beauty of [Twitter Bootstrap][twitter-bootstrap]
@@ -51,8 +70,6 @@ If you find any bugs, please create an issue at [issue tracker for project Githu
 ## License
 This work as a whole is licensed under a BSD license. Full text is included in the `LICENSE` file in the root of codebase.
 
-> [![Clevertech](http://clevertech.biz/images/slir/w54-h36-c54:36/images/site/index/home/clevertech-logo.png)](http://www.clevertech.biz)
->
 > Well-built beautifully designed web applications.
 >
 > [www.clevertech.biz](http://www.clevertech.biz)

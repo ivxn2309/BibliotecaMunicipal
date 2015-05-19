@@ -15,8 +15,8 @@
  *
  * @package booster.widgets.grids.columns
  */
-class TbRelationalColumn extends TbDataColumn
-{
+class TbRelationalColumn extends TbDataColumn {
+	
 	/**
 	 * @var string $url the route to call via AJAX to get the data from
 	 */
@@ -61,12 +61,18 @@ class TbRelationalColumn extends TbDataColumn
 	 * error.
 	 */
 	public $ajaxErrorMessage = 'Error';
+	
+	/**
+	 * @var array $submitData allows you to merge extra data into the query string being sent to the server.
+	 * normally the row id is sent as 'id'
+	 */
+	public $submitData=array();
 
 	/**
 	 * widget initialization
 	 */
-	public function init()
-	{
+	public function init() {
+		
 		parent::init();
 
 		if (empty($this->url))
@@ -82,8 +88,8 @@ class TbRelationalColumn extends TbDataColumn
 	 *
 	 * @param int $row
 	 */
-	public function renderDataCell($row)
-	{
+	public function renderDataCell($row) {
+		
 		$data = $this->grid->dataProvider->data[$row];
 		$options = $this->htmlOptions;
 
@@ -111,8 +117,8 @@ class TbRelationalColumn extends TbDataColumn
 	 *
 	 * @return null|string
 	 */
-	protected function getPrimaryKey($data)
-	{
+	protected function getPrimaryKey($data) {
+		
 		if ($this->grid->dataProvider instanceof CActiveDataProvider) {
 			$key = $this->grid->dataProvider->keyAttribute === null ? $data->getPrimaryKey()
 				: $data->{$this->grid->dataProvider->keyAttribute};
@@ -130,9 +136,9 @@ class TbRelationalColumn extends TbDataColumn
 	/**
 	 * Register script that will handle its behavior
 	 */
-	public function registerClientScript()
-	{
-		Yii::app()->bootstrap->registerAssetCss('bootstrap-relational.css');
+	public function registerClientScript() {
+		
+        Booster::getBooster()->registerAssetCss('bootstrap-relational.css');
 
 		/** @var $cs CClientScript */
 		$cs = Yii::app()->getClientScript();
@@ -149,7 +155,7 @@ class TbRelationalColumn extends TbDataColumn
 		$this->ajaxErrorMessage = CHtml::encode($this->ajaxErrorMessage);
 		$afterAjaxUpdate = CJavaScript::encode($this->afterAjaxUpdate);
 		$span = count($this->grid->columns);
-		$loadingPic = CHtml::image(Yii::app()->bootstrap->getAssetsUrl() . '/img/loading.gif');
+		$loadingPic = CHtml::image(Booster::getBooster()->getAssetsUrl() . '/img/loading.gif');
 		$cache = $this->cacheData ? 'true' : 'false';
 		$data = !empty($this->submitData) && is_array($this->submitData) ? $this->submitData : 'js:{}';
 		$data = CJavascript::encode($data);

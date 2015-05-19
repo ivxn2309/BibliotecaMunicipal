@@ -10,19 +10,14 @@
  * @var Bootstrap $this
  */
 return array(
-
 	'font-awesome' => array(
-		'baseUrl' => $this->enableCdn ? '//netdna.bootstrapcdn.com/font-awesome/3.2.1/' : $this->getAssetsUrl().'/font-awesome/',
-		'css' => array($this->minify ? 'css/font-awesome.min.css' : 'css/font-awesome.css'),
-	),
-	'font-awesome-ie7' => array(
-		'baseUrl' => $this->enableCdn ? '//netdna.bootstrapcdn.com/font-awesome/3.2.1/' : $this->getAssetsUrl().'/font-awesome/',
-		'css' => array($this->minify ? 'css/font-awesome-ie7.min.css' : 'css/font-awesome-ie7.css'),
+		'baseUrl' => $this->enableCdn ? '//netdna.bootstrapcdn.com/font-awesome/4.1.0/' : $this->getAssetsUrl().'/font-awesome/',
+		'css' => array(($this->minify || $this->enableCdn) ? 'css/font-awesome.min.css' : 'css/font-awesome.css'),
 	),
 	'bootstrap.js' => array(
-		'baseUrl' => $this->enableCdn ? '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/' : $this->getAssetsUrl() . '/bootstrap/',
+		'baseUrl' => $this->enableCdn ? '//netdna.bootstrapcdn.com/bootstrap/3.1.1/' : $this->getAssetsUrl() . '/bootstrap/',
 		'js' => array($this->minify ? 'js/bootstrap.min.js' : 'js/bootstrap.js'),
-		'depends' => array('jquery', 'jqui-tb-noconflict'),
+		'depends' => array('jquery'),
 	),
 	'bootstrap-yii' => array(
 		'baseUrl' => $this->getAssetsUrl(),
@@ -40,18 +35,25 @@ return array(
 		'baseUrl' => $this->getAssetsUrl() . '/notify/',
 		'js' => array($this->minify ? 'notify.min.js' : 'notify.js')
 	),
-	'jqui-tb-noconflict' => array(
-		'baseUrl' => $this->getAssetsUrl(),
-		'js' => array('js/jqui-tb-noconflict.js'),
-		'depends' => array('jquery', 'jquery.ui') // we don't have any other choice to reliably prevent conflicts with jQueryUI than to forcefully include it before Bootstrap and the script preventing conflicts
-	),
+    'bootstrap-noconflict' => array(
+        'baseUrl' => $this->getAssetsUrl(),
+        'js' => array('js/bootstrap-noconflict.js'),
+        'depends' => array('jquery'),
+    ),
 
 	//widgets start
+    'ui-layout' => array(
+        'baseUrl' => $this->getAssetsUrl() . '/ui-layout/',
+        'css' => array('css/layout-default.css'),
+        'js' => array($this->minify ? 'js/jquery.layout.min.js' : 'js/jquery.layout.js'),
+        'depends' => array('jquery', 'jquery.ui'),
+    ),
 	'datepicker' => array(
 		'depends' => array('jquery'),
-		'baseUrl' => $this->enableCdn ? '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.1.3/' : $this->getAssetsUrl(),
-		'css' => array($this->minify ? 'css/bootstrap-datepicker.min.css' : 'css/bootstrap-datepicker.css'),
-		'js' => array($this->minify ? 'js/bootstrap-datepicker.min.js' : 'js/bootstrap-datepicker.js')
+		'baseUrl' => $this->enableCdn ? '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/' : $this->getAssetsUrl() . '/bootstrap-datepicker/',
+		'css' => array('css/datepicker3.css'), // $this->minify ? 'css/datepicker.min.css' : 'css/datepicker.css'),
+		'js' => array($this->minify ? 'js/bootstrap-datepicker.min.js' : 'js/bootstrap-datepicker.js', 'js/bootstrap-datepicker-noconflict.js') 
+		// ... the noconflict code is in its own file so we do not want to touch the original js files to ease upgrading lib
 	),
 	'datetimepicker' => array(
 		'depends' => array('jquery'),
@@ -63,11 +65,17 @@ return array(
 		'baseUrl' => $this->enableCdn ? '//cdnjs.cloudflare.com/ajax/libs/datejs/1.0/' : $this->getAssetsUrl() . '/js/',
 		'js' => array('date.min.js')
 	),
+	'colorpicker' => array(
+		'depends' => array('jquery'),
+		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-colorpicker/',
+		'css' => array($this->minify ? 'css/bootstrap-colorpicker.min.css' : 'css/bootstrap-colorpicker.css'),
+		'js' => array($this->minify ? 'js/bootstrap-colorpicker.min.js' : 'js/bootstrap-colorpicker.js')
+	),
 	'x-editable' => array(
 		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-editable/',
 		'css' => array('css/bootstrap-editable.css'),
 		'js' => array($this->minify ? 'js/bootstrap-editable.min.js' : 'js/bootstrap-editable.js'),
-		'depends' => array('jquery')
+		'depends' => array('jquery','bootstrap.js', 'datepicker') /* this is to ensure that datepicker always come before editable */
 	),
 	'moment' => array(
 		'baseUrl' => $this->getAssetsUrl(),
@@ -83,7 +91,6 @@ return array(
 		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-wizard',
 		'js' => array($this->minify ? 'jquery.bootstrap.wizard.min.js' : 'jquery.bootstrap.wizard.js')
 	),
-
 	'ajax-cache' => array(
 		'baseUrl' => $this->getAssetsUrl() . '/ajax-cache',
 		'js' => array('jquery.ajax.cache.js'),
@@ -97,26 +104,65 @@ return array(
 		'js' => array('jquery.json.yiigridview.js'),
 		'depends' => array('jquery', 'jqote2', 'ajax-cache')
 	),
-
+	'group-grid-view' => array(
+		'baseUrl' => $this->getAssetsUrl() . '/group-grid-view',
+		'js' => array('jquery.group.yiigridview.js'),
+		'depends' => array('jquery', 'jqote2', 'ajax-cache')
+	),
 	'redactor' => array(
 		'baseUrl' => $this->getAssetsUrl() . '/redactor',
 		'js' => array($this->minify ? 'redactor.min.js' : 'redactor.js'),
 		'css' => array('redactor.css'),
 		'depends' => array('jquery')
 	),
-
 	'passfield' => array(
 		'depends' => array('jquery'),
-		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-passfield/', // Not in CDN yet
+		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-passfield', // Not in CDN yet
 		'css' => array($this->minify ? 'css/passfield.min.css' : 'css/passfield.min.css'),
 		'js' => array($this->minify ? 'js/passfield.min.js' : 'js/passfield.min.js')
 	),
-
 	'timepicker' => array(
 		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-timepicker',
-		'js' => array($this->minify ? 'js/bootstrap-timepicker.min.js' : 'js/bootstrap-timepicker.js'),
+		'js' => array('js/bootstrap-timepicker.js'),
 		'css' => array($this->minify ? 'css/bootstrap-timepicker.min.css' : 'css/bootstrap-timepicker.css'),
 		'depends' => array('bootstrap.js')
 	),
-
+	'ckeditor' => array(
+		'baseUrl' => $this->getAssetsUrl() . '/ckeditor',
+		'js' => array('ckeditor.js')
+	),
+	'highcharts' => array(
+		'baseUrl' => $this->enableCdn ? '//code.highcharts.com' : $this->getAssetsUrl() . '/highcharts',
+		'js' => array($this->minify ? 'highcharts.js' : 'highcharts.src.js')
+	),
+	'wysihtml5' => array(
+		'depends' => array('bootstrap.js'),
+		'baseUrl' => $this->getAssetsUrl() . '/bootstrap3-wysihtml5',
+		'css' => array('bootstrap-wysihtml5.css'),
+		'js' => array('wysihtml5-0.3.0.js', 'bootstrap3-wysihtml5.js'),
+	),
+	'markdown' => array(
+		'depends' => array('bootstrap.js'),
+		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-markdown',
+		'css' => array('css/bootstrap-markdown.min.css'),
+		'js' => array('js/bootstrap-markdown.js'),
+	),
+	'switch' => array(
+		'depends' => array('bootstrap.js'),
+		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-switch',
+		'css' => array($this->minify ? 'css/bootstrap3/bootstrap-switch.min.css' : 'css/bootstrap3/bootstrap-switch.css'),
+		'js' => array($this->minify ? 'js/bootstrap-switch.min.js' : 'js/bootstrap-switch.js'),
+	),
+	'typeahead' => array(
+		'depends' => array('jquery'),
+		'baseUrl' => $this->getAssetsUrl() . '/typeahead',
+		'css' => array('css/typeahead.css'),
+		'js' => array($this->minify ? 'js/typeahead.bundle.min.js' : 'js/typeahead.bundle.js'),
+	),
+	'bootstrap-tags' => array(
+		'depends' => array('jquery'),
+		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-tags',
+		'css' => array('css/bootstrap-tags.css'),
+		'js' => array($this->minify ? 'js/bootstrap-tags.min.js' : 'js/bootstrap-tags.js'),
+	),
 );

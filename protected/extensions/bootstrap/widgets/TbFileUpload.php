@@ -59,22 +59,22 @@ class TbFileUpload extends CJuiInputWidget
 	/**
 	 * @var string name of the form view to be rendered
 	 */
-	public $formView = 'bootstrap.views.fileupload.form';
+	public $formView = 'booster.views.fileupload.form';
 
 	/**
 	 * @var string name of the upload view to be rendered
 	 */
-	public $uploadView = 'bootstrap.views.fileupload.upload';
+	public $uploadView = 'booster.views.fileupload.upload';
 
 	/**
 	 * @var string name of the download view to be rendered
 	 */
-	public $downloadView = 'bootstrap.views.fileupload.download';
+	public $downloadView = 'booster.views.fileupload.download';
 
 	/**
 	 * @var string name of the view to display images at bootstrap-slideshow
 	 */
-	public $previewImagesView = 'bootstrap.views.gallery.preview';
+	public $previewImagesView = 'booster.views.gallery.preview';
 
 	/**
 	 * Widget initialization
@@ -104,7 +104,7 @@ class TbFileUpload extends CJuiInputWidget
 
 		list($name, $id) = $this->resolveNameID();
 
-		$this->htmlOptions['id'] = ($this->hasModel() ? get_class($this->model) : 'fileupload') . '-form';
+		$this->htmlOptions['id'] = $this->id.'-'.($this->hasModel() ? get_class($this->model) : 'fileupload') . '-form';
 
 		$this->options['url'] = $this->url;
 
@@ -151,37 +151,37 @@ class TbFileUpload extends CJuiInputWidget
 	 */
 	public function registerClientScript($id)
 	{
-
-		Yii::app()->bootstrap->registerAssetCss('fileupload/jquery.fileupload-ui.css');
+        $booster = Booster::getBooster();
+        $booster->registerAssetCss('fileupload/jquery.fileupload-ui.css');
 
 		// Upgrade widget factory
 		// @todo remove when jquery.ui 1.9+ is fully integrated into stable Yii versions
-		Yii::app()->bootstrap->registerAssetJs('fileupload/vendor/jquery.ui.widget.js');
+        $booster->registerAssetJs('fileupload/vendor/jquery.ui.widget.js');
 		//The Templates plugin is included to render the upload/download listings
-		Yii::app()->bootstrap->registerAssetJs("fileupload/tmpl.min.js", CClientScript::POS_END);
+        $booster->registerAssetJs("fileupload/tmpl.min.js", CClientScript::POS_END);
 
 		if ($this->previewImages || $this->imageProcessing) {
-			Yii::app()->bootstrap->registerAssetJs("fileupload/load-image.min.js", CClientScript::POS_END);
-			Yii::app()->bootstrap->registerAssetJs("fileupload/canvas-to-blob.min.js", CClientScript::POS_END);
-			// gallery :)
-			Yii::app()->bootstrap->registerAssetCss("bootstrap-image-gallery.min.css");
-			Yii::app()->bootstrap->registerAssetJs("bootstrap-image-gallery.min.js", CClientScript::POS_END);
+            $booster->registerAssetJs("fileupload/load-image.min.js", CClientScript::POS_END);
+            $booster->registerAssetJs("fileupload/canvas-to-blob.min.js", CClientScript::POS_END);
+			// gallery :) and one smile from me ;)
+            $booster->registerAssetCss("bootstrap-image-gallery.min.css");
+            $booster->registerAssetJs("bootstrap-image-gallery.min.js", CClientScript::POS_END);
 		}
 		//The Iframe Transport is required for browsers without support for XHR file uploads
-		Yii::app()->bootstrap->registerAssetJs('fileupload/jquery.iframe-transport.js');
-		Yii::app()->bootstrap->registerAssetJs('fileupload/jquery.fileupload.js');
+        $booster->registerAssetJs('fileupload/jquery.iframe-transport.js');
+        $booster->registerAssetJs('fileupload/jquery.fileupload.js');
 		// The File Upload image processing plugin
 		if ($this->imageProcessing) {
-			Yii::app()->bootstrap->registerAssetJs('fileupload/jquery.fileupload-ip.js');
+            $booster->registerAssetJs('fileupload/jquery.fileupload-ip.js');
 		}
 		// The File Upload file processing plugin
 		if ($this->previewImages) {
-			Yii::app()->bootstrap->registerAssetJs('fileupload/jquery.fileupload-fp.js');
+            $booster->registerAssetJs('fileupload/jquery.fileupload-fp.js');
 		}
 		// locale
-		Yii::app()->bootstrap->registerAssetJs('fileupload/jquery.fileupload-locale.js');
+        $booster->registerAssetJs('fileupload/jquery.fileupload-locale.js');
 		//The File Upload user interface plugin
-		Yii::app()->bootstrap->registerAssetJs('fileupload/jquery.fileupload-ui.js');
+        $booster->registerAssetJs('fileupload/jquery.fileupload-ui.js');
 
 		$options = CJavaScript::encode($this->options);
 		Yii::app()->clientScript->registerScript(__CLASS__ . '#' . $id, "jQuery('#{$id}').fileupload({$options});");

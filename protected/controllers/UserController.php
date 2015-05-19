@@ -1,5 +1,4 @@
 <?php
-
 class UserController extends Controller
 {
 	/**
@@ -122,9 +121,44 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('User');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+		
+		$models=User::model()->findAll();
+		$arreglo = array();
+		for($i=0;$i<sizeOf($models);$i++){
+			$testSubject = new UserEntity();
+			$testSubject->id=$i;
+			$testSubject->username=$models[$i]->username;
+			$testSubject->firstname=$models[$i]->firstname;
+			$testSubject->surnames=$models[$i]->surnames;
+			$testSubject->address=$models[$i]->address;
+			$testSubject->phone=$models[$i]->phone;
+			$testSubject->age=$models[$i]->age;
+			$testSubject->guarantor=$models[$i]->guarantor;
+			$testSubject->email=$models[$i]->email;
+			$arreglo[$i] = $testSubject;
+		}
+		$gridDataProvider = new CArrayDataProvider($arreglo);
+		$gridColumns = array(
+			array('name'=>'username', 'header'=>'Username'),
+			array('name'=>'firstname', 'header'=>'First name'),
+			array('name'=>'surnames', 'header'=>'Last name'),
+			array('name'=>'address', 'header'=>'Address'),
+			array('name'=>'phone', 'header'=>'Phone'),
+			array('name'=>'age', 'header'=>'Age'),
+			array('name'=>'guarantor', 'header'=>'Guarantor'),
+			array('name'=>'email', 'header'=>'E-mail'),
+			array(
+				'htmlOptions' => array('nowrap'=>'nowrap'),
+				'class'=>'booster.widgets.TbButtonColumn',
+				'viewButtonUrl'=>null,
+				'updateButtonUrl'=>null,
+				'deleteButtonUrl'=>null,
+			)
+		);
+		$this->render('index', array(
+			'models'=>$models,
+			'gridDataProvider'=>$gridDataProvider,
+			'gridColumns'=>$gridColumns,
 		));
 	}
 
@@ -171,3 +205,5 @@ class UserController extends Controller
 		}
 	}
 }
+
+class UserEntity {}

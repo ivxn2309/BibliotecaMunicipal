@@ -14,8 +14,8 @@
  *
  * @package booster.widgets.forms.inputs
  */
-class TbSelect2 extends CInputWidget
-{
+class TbSelect2 extends CInputWidget {
+	
 	/**
 	 * @var TbActiveForm when created via TbActiveForm.
 	 * This attribute is set to the form that renders the widget
@@ -47,6 +47,18 @@ class TbSelect2 extends CInputWidget
 	 */
 	public $options;
 
+    /**
+     * @var bool
+     * @since 2.1.0
+     */
+    public $readonly = false;
+
+    /**
+     * @var bool
+     * @since 2.1.0
+     */
+    public $disabled = false;
+
 	/**
 	 *### .init()
 	 *
@@ -61,6 +73,14 @@ class TbSelect2 extends CInputWidget
 		$this->addEmptyItemIfPlaceholderDefined();
 
 		$this->setDefaultWidthIfEmpty();
+
+        // disabled & readonly
+        if (!empty($this->htmlOptions['readonly'])) {
+            $this->readonly = true;
+        }
+        if (!empty($this->htmlOptions['disabled'])) {
+            $this->disabled = true;
+        }
 	}
 
 	/**
@@ -104,19 +124,37 @@ class TbSelect2 extends CInputWidget
 	 * Registers required client script for bootstrap select2. It is not used through bootstrap->registerPlugin
 	 * in order to attach events if any
 	 */
-	public function registerClientScript($id)
-	{
-		Yii::app()->bootstrap->registerPackage('select2');
+	public function registerClientScript($id) {
+		
+        Booster::getBooster()->registerPackage('select2');
 
 		$options = !empty($this->options) ? CJavaScript::encode($this->options) : '';
 
-		$defValue = !empty($this->val) ? ".select2('val', '$this->val')" : '';
+		if(! empty($this->val)) {
+			if(is_array($this->val)) {
+				$data = CJSON::encode($this->val);
+			} else {
+				$data = $this->val;
+			}
+
+			$defValue = ".select2('val', $data)";
+		}
+		else
+			$defValue = '';
+
+        if ($this->readonly) {
+            $defValue .= ".select2('readonly', true)";
+        }
+        elseif ($this->disabled) {
+            $defValue .= ".select2('enable', false)";
+        }
 
 		ob_start();
-		echo "jQuery('#{$id}').select2({$options})$defValue";
+		echo "jQuery('#{$id}').select2({$options})";
 		foreach ($this->events as $event => $handler) {
 			echo ".on('{$event}', " . CJavaScript::encode($handler) . ")";
 		}
+		echo $defValue;
 
 		Yii::app()->getClientScript()->registerScript(__CLASS__ . '#' . $this->getId(), ob_get_clean() . ';');
 	}
@@ -139,7 +177,7 @@ class TbSelect2 extends CInputWidget
 		if (!empty($this->htmlOptions['placeholder']))
 			$this->options['placeholder'] = $this->htmlOptions['placeholder'];
 
-		if (!empty($this->options['placeholder']))
+		if (!empty($this->options['placeholder']) && empty($this->htmlOptions['multiple']))
 			$this->prependDataWithEmptyItem();
 	}
 
@@ -152,6 +190,6 @@ class TbSelect2 extends CInputWidget
 
 	private function prependDataWithEmptyItem()
 	{
-		$this->data[''] = '';
+		$this->data = array('' => '') + $this->data;
 	}
 }

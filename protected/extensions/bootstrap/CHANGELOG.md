@@ -8,6 +8,112 @@ Thank you all
 
 Antonio Ramirez.
 
+## YiiBooster latest development alpha  
+
+## YiiBooster version 4.0.1
+- **(fix)** fix gii generated TbActiveForm code - #851
+
+## YiiBooster version 4.0.0
+- Bootstrap 3 production ready version - http://yiibooster.clevertech.biz/ - http://yiibooster.clevertech.biz/api/
+
+## YiiBooster version 4.0.0-beta-2
+- Finalize editables
+- Finalize datepicker
+- Finalize timepicker
+- Finalize select2
+- Finalize pagers
+- Finalize navbar
+- Finalize buttons, and button groups
+- Finalize typeahead
+- more work done on grids, extended grids, bulk actions
+- upgrade font awesome 
+
+## YiiBooster version 4.0.0-beta-1
+- TbActiveForm working
+- more widgets working 
+- api doc
+- travis, and scrutinizer ci
+
+## YiiBooster version 4.0.0-alpha
+- upgrade the bootstrap version to 3.1.1
+- upgrade and fix many widgets to work with bootstrap 3.1.1
+- many widgets still not ported
+- code structure is not final yet 
+- working widgets (TbAlert, TbBadge, TbButton, TbJumbotron, TbLabel, TbProgressBar, TbEditableField, TbEditableColumn, TbEditableDetailView, TbHighChart, TbActiveForm, TbPager)
+- not all TbActiveForm controls are ported yet
+
+## YiiBooster version 3.0.0
+- **(fix)** TbExtendedGridView - TbProgress inside cell css fix - #448
+- **(enh)** TbGridView - try to register TbEditableColumn scripts for empty providers - works only with CActiveDataProvider - #526 
+- **(fix)** TbDatePicker - noconflicts fix - #531
+- **(fix)** TbBox header css fix to overflow its contents - #559 
+- **(fix)** TbEditableSaver moved to comonents instead of widgets
+- **(fix)** TbButtonColumn not displaying images - #604 
+- **(enh)** TbExtendedGridView - with chart categories bindings on xAxis - #608  
+- **(enh)** TbActiveForm - custom label support for radioButtonRow and checkBoxRow - #776  
+- **(enh)** TbToggleAction - now supports composite key - #668
+- **(enh)** TbExtendedGrid - supporting 'sortableRows' with composite key models - #669
+- **(enh)** TbTimePicker - update to the latest bootstrap-timepicker - #700
+- **(fix)** TbActiveForm - Prevent placeholder rendering as list item - #774 	
+- **(fix)** TbInput - fix bug using CHtml::resolveName() in getContainerCssClass() - #775
+- **(fix)** TbFormInputElement - fix passing attributes to widget - #773 
+- **(fix)** TbTimePicker error on client side validation - #716 
+- **(fix)** Fixed keyField for CArrayDataProvider in TbExtendedGridView - #738
+- **(fix)** TbRelationalColumn - adding submitData - #741
+- **(fix)** packages fix x-editable depends on bootstrap - #742 
+- **(enh)** TbEditableColumn now supports CArrayDataProvider as well as CActiveDataProvider - #745 
+- **(fix)** TbHtml FontAwesome is now working well- #746
+- **(enh)** TbEditable - adding support for the 'source' to be a function that takes the $model as an attribute and returns the proper array 
+- **(fix)** TbSelect2 - disabled fix - #752 
+- **(fix)** JSON Grid now sorts in both ways - #753 
+- **(fix)** TbGroupGridView - fix rows id - #755
+- **(fix)** TbFileUpload - allow multi instance in the same page - #756
+- **(enh)** TbExtendedGridView - Grid/Chart switcher - fix of chart auto reflow
+- **(fix)** TbEditableField - fixed the "model has no getAttribute method" error
+- **(enh)** gii - now the generator detects the db types date, and enum and generate the corresponding controls
+- **(enh)** TbActiveForm - added the default placeholder in case of Inbut widgets, and CModel to be the attribute label
+- **(enh)** TbExtendedGridView - Grid/Chart switcher - added the defaultView property to let the chart be the default view
+- **(fix)** TbExtendedGridView - Grid/Chart switcher - fix not working toggle button
+- **(fix)** Update x-editable to 1.5.2 and fix setting locale for datepicker, when jQuery UI is loaded on page #770 (Wiseon3)
+- **(enh)** TbExtendedGridView remembering selected rows #628 (firsyura)
+- **(fix)** Arrow in header of sortable gridview column is now displayed only if the column is sortable (contains sort-link) (kev360)
+- **(enh)** New widget `TbEditable` to be able to use `x-editable` without models #729 (fromYukki)
+
+## YiiBooster version 2.1.1
+- **(fix)** No more overwrites `CClientScript` by Booster #726 (fromYukki)
+
+## YiiBooster version 2.1.0
+- **(fix)** Fix "Maximum call stack size exceeded" inside `TbExtendedGridView` class #430 (fromYukki)
+- **(fix)** Fix attributes on `td` after update in classes `TbJsonButtonColumn` and `TbJsonCheckBoxColumn` #350 (fromYukki)
+- **(enh)** New attributes `readonly` and `disabled` for `TbSelect2` class #305 (fromYukki)
+- **(fix)** Client validation for inline forms using `TbActiveForm` class #242 (fromYukki)
+- **(enh)** Basic version of new widget jQuery UI Layout Manager (`TbUiLayout`) #390 (fromYukki)
+- **(fix)** Fix tooltip binding for `TbButtonColumn`, `TbButtonGroupColumn` and `TbToggleColumn` #271 (fromYukki)
+- **(fix)** Store some Bootstrap widgets in his own variables to prevent conflicts with jQuery UI #228 (fromYukki)
+- **(enh)** Using Bootstrap and Font-Awesome icons together, removed "no-icons" css for Bootstrap, changed logic for icons in widgets #706 (fromYukki)
+- **(enh)** Font Awesome updated to 4.0.3 including CDN #706 (fromYukki)
+- **(fix)** Resolve conflicts between jQuery UI and Bootstrap (fromYukki)
+- **(enh)** Tooltip for `TbButton` and `TbButtonGroup` #724 (fromYukki)
+- **(fix)** Ability to put any custom css class via htmlOptions attribute for `EditableDetailView` #684 (fromYukki)
+- **(fix)** Editable Detail view Date i18n error #686 (fromYukki)
+- **(enh)** Bootstrap carousel with links for images #682
+- **(fix)** Do not display empty alert messages #721 (fromYukki, amrbedair)
+- **(fix)** `TbSelect2` - Multi-select and placeholder lead to empty selection #717 (fromYukki)
+- **(enh)** Now bootstrap can be used with modules (fromYukki)
+- **(enh)** Inline dropDownList without label (naduvko)
+- **(enh)** Date range picker for inline forms (Hrumpa)
+- **(enh)** Updated Bootstrap DateTimePicker to 2.2.0 (adeg)
+- **(enh)** Updated HighCharts to 3.0.6 (hijarian)
+- **(fix)** Now we can use Javascript function definitions in `TbHighCharts` and `TbRedactorJs` options. #696 (hijarian)
+- **(enh)** Now the source distribution will hold the user-level documentation for widgets in universal XML format, along with the examples in PHP. #692 (hijarian)
+- **(enh)** Updated CKEditor library to version 4.2.1 (hijarian)
+- **(enh)** Updated redactor js to version 9.1.5 (kullar84)
+- **(enh)** Updated X-Editable assets to version 1.5.0 (hijarian)
+- **(enh)** Updated Bootstrap Datepicker assets to version 1.2.0 (hijarian)
+- **(fix)** Fixed `TbDatePicker` so it loads locale files from package folder. #688 (hijarian)
+- **(fix)** Fix `TbDateTimePicker`, so it loads locale files from the package folder, fix `TbEditableField` to load required scripts for 'datetime' field type (adeg)
+- **(fix)** Fix for placeholder overwriting in TbInputInline::maskedTextField and TbInputInline::typeAheadField. #694 (hightman)
+
 ## YiiBooster version 2.0.0
 - **(enh)** Bootstrap DateRangePicker updated to 1.2, moment.js updated to 2.2.1 (Hrumpa)
 - **(fix)** Fixed incorrect spec for `moment.js` library package. #673 #672 (fleuryc)
@@ -126,7 +232,6 @@ Antonio Ramirez.
 
 
 ## YiiBooster version 1.0.5
-
 - **(fix)** TbCarousel displayPrevAndNext set to false breaks the page (amosviedo)
 - **(enh)** Bootstrap upgrade to 2.2.1 (kazuo)
 - **(fix)** TbActiveForm class name is displayed on screen (sorinpohontu)

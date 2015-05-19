@@ -19,8 +19,8 @@
 	
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-	<link rel="shortcut icon" type="image/png" href="favicon.png">
+	<link rel="shortcut icon" type="image/png" href="<?php echo Yii::app()->theme->baseUrl; ?>/img/favicon.ico">
+	<link rel="shortcut icon" type="image/png" href="<?php echo Yii::app()->theme->baseUrl; ?>/img/favicon.png">
 
 	
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
@@ -41,94 +41,90 @@
 		<a href="#" class="logo fleft">
 			<img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/logo.png" alt="Biblioteca Municipal">
 		</a>
-		
-		<nav class="nav">
-			<?php $this->widget('zii.widgets.CMenu',array(
-				'items'=>array(
-					array('label'=>'Inicio', 'url'=>array('site/index')),
-                    array('label'=>'Ver', 'url'=>array('site/index'), 'items'=>array(
-                        array('label'=>'Usuarios', 'url'=>array('site/index')),
-                        array('label'=>'Préstamos', 'url'=>array('site/index')),
-                        array('label'=>'Mensajes', 'url'=>array('site/index')),
-                    )),
-                    array('label'=>'Galería', 'url'=>array('site/index')),
-                    array('label'=>'Libros', 'url'=>array('site/index'), 'items'=>array(
-                        array('label'=>'Estante Virtual', 'url'=>array('site/index')),
-                        array('label'=>'Acervos', 'url'=>array('site/index')),
-                        array('label'=>'Recomendacion', 'url'=>array('site/index')),
-                    )),
-                    array('label'=>'Información', 'url'=>array('site/index'), 'items'=>array(
-                        array('label'=>'Préstamos', 'url'=>array('site/index')),
-                        array('label'=>'Carnet', 'url'=>array('site/index')),
-                        array('label'=>'Identificación', 'url'=>array('site/index')),
-                        array('label'=>'Calendario', 'url'=>array('site/index')),
-                        array('label'=>'Servicio Local', 'url'=>array('site/index')),
-                    )),
-                    array('label'=>'Servicios', 'url'=>array('site/index'), 'items'=>array(
-                        array('label'=>'Cursos', 'url'=>array('site/index')),
-                        array('label'=>'Foros', 'url'=>array('site/index')),
-                        array('label'=>'Juegos', 'url'=>array('site/index')),
-                        array('label'=>'Video', 'url'=>array('site/index')),
-                    )),
-                    array('label'=>'Contacto', 'url'=>array('site/index'), 'items'=>array(
-                        array('label'=>'Mensajes', 'url'=>array('site/index')),
-                        array('label'=>'Acerca de', 'url'=>array('/site/page', 'view'=>'about')),
-                    )),
-                    array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                    array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-				),
-			)); ?>
-		</nav>
+		<div class="fright">
+			<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+				'links'=>$this->breadcrumbs,
+			)); ?><!-- breadcrumbs -->
+		</div>		
 	</header>
 
 
 <div class="home-page main">
 	<section class="grid-wrap" >
 		<header class="grid col-full">
-			<hr>
-			<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-				'links'=>$this->breadcrumbs,
-			)); ?><!-- breadcrumbs -->
-
+			<nav class="nav">
+				<?php $this->widget('zii.widgets.CMenu',array(
+					'items'=>array(
+						array('label'=>'Inicio', 'url'=>array('site/index')),
+						array('label'=>'Ver', 'url'=>array('site/index'), 'items'=>array(
+							array('label'=>'Usuarios', 'url'=>array('user/index')),
+							array('label'=>'Préstamos', 'url'=>array('site/index')),
+							array('label'=>'Mensajes', 'url'=>array('site/index')),
+						)),
+						array('label'=>'Galería', 'url'=>array('site/index')),
+						array('label'=>'Libros', 'url'=>array('site/index'), 'items'=>array(
+							array('label'=>'Estante Virtual', 'url'=>array('site/index')),
+							array('label'=>'Acervos', 'url'=>array('site/index')),
+							array('label'=>'Recomendacion', 'url'=>array('site/index')),
+						)),
+						array('label'=>'Información', 'url'=>array('site/index'), 'items'=>array(
+							array('label'=>'Préstamos', 'url'=>array('site/index')),
+							array('label'=>'Carnet', 'url'=>array('site/index')),
+							array('label'=>'Identificación', 'url'=>array('site/index')),
+							array('label'=>'Calendario', 'url'=>array('site/index')),
+							array('label'=>'Servicio Local', 'url'=>array('site/index')),
+						)),
+						array('label'=>'Servicios', 'url'=>array('site/index'), 'items'=>array(
+							array('label'=>'Cursos', 'url'=>array('site/index')),
+							array('label'=>'Foros', 'url'=>array('site/index')),
+							array('label'=>'Juegos', 'url'=>array('site/index')),
+							array('label'=>'Video', 'url'=>array('site/index')),
+						)),
+						array('label'=>'Contacto', 'url'=>array('site/index'), 'items'=>array(
+							array('label'=>'Mensajes', 'url'=>array('site/index')),
+							array('label'=>'Acerca de', 'url'=>array('/site/page', 'view'=>'about')),
+						)),
+						array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+						array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+					),
+				)); ?>
+			</nav>
 		</header>
 		
 		<div class="grid col-full mq2-col-full">
 			<?php echo $content; ?>
 		</div>
-		<!--
-		 <div class="slider grid col-one-half mq2-col-full">
-		   <div class="flexslider">
-		     <div class="slides">
-		       <div class="slide">
-		           	<figure>
-		                 <img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img2.jpg" alt="">
-		                 <figcaption>
-		                 	<div>
-		                 	<h5>Caption 1</h5>
-		                 	<p>Lorem ipsum dolor set amet, lorem, <a href="#">link text</a></p>
-		                 	</div>
-		                 </figcaption>
-		             	</figure>
-		           </div>
-		           
-		           <div class="slide">
-		               	<figure>
-		                     <img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img.jpg" alt="">
-		                     <figcaption>
-		                     	<div>
-		                     	<h5>Caption 2</h5>
-		                     	<p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-		                     	</div>
-		                     </figcaption>
-		                 	</figure>
-		               </div>
-		            </div>
-		   </div>
-		 </div>
-		-->
-		 </section>
-		
-	
+	</section>
+<!--
+<div class="slider grid col-one-half mq2-col-full">
+<div class="flexslider">
+<div class="slides">
+<div class="slide">
+<figure>
+<img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img2.jpg" alt="">
+<figcaption>
+<div>
+<h5>Caption 1</h5>
+<p>Lorem ipsum dolor set amet, lorem, <a href="#">link text</a></p>
+</div>
+</figcaption>
+</figure>
+</div>
+<div class="slide">
+<figure>
+<img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img.jpg" alt="">
+<figcaption>
+<div>
+<h5>Caption 2</h5>
+<p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+</div>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+-->
 	<section class="services grid-wrap">
 		<header class="grid col-full">
 			<hr>
@@ -206,7 +202,7 @@
 				</figcaption>
 			</figure>
 	</section>
-	</div> <!--main-->
+</div> <!--main-->
 
 <div class="divide-top">
 	<footer class="grid-wrap">
@@ -266,6 +262,7 @@
   text-align: center;
   padding: 0;
   margin: 0;
+  box-shadow: 0px 2px 5px #888888;
 }
 
 .nav li {

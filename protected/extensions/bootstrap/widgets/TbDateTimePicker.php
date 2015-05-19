@@ -6,15 +6,15 @@
  * @copyright
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  */
-
+Yii::import('booster.widgets.TbBaseInputWidget');
 /**
  * Bootstrap DateTimePicker widget
  * @see http://www.malot.fr/bootstrap-datetimepicker/
  *
  * @package booster.widgets.forms.inputs
  */
-class TbDateTimePicker extends CInputWidget
-{
+class TbDateTimePicker extends TbBaseInputWidget {
+	
 	/**
 	 * @var TbActiveForm when created via TbActiveForm.
 	 * This attribute is set to the form that renders the widget
@@ -37,8 +37,10 @@ class TbDateTimePicker extends CInputWidget
 	 *
 	 * Initializes the widget.
 	 */
-	public function init()
-	{
+	public function init() {
+		
+		parent::init();
+		
 		$this->htmlOptions['type'] = 'text';
 		$this->htmlOptions['autocomplete'] = 'off';
 
@@ -53,8 +55,8 @@ class TbDateTimePicker extends CInputWidget
 	 *
 	 * Runs the widget.
 	 */
-	public function run()
-	{
+	public function run() {
+		
 		list($name, $id) = $this->resolveNameID();
 
 		if ($this->hasModel()) {
@@ -88,21 +90,22 @@ class TbDateTimePicker extends CInputWidget
 	 * Registers required client script for bootstrap datepicker. It is not used through bootstrap->registerPlugin
 	 * in order to attach events if any
 	 */
-	public function registerClientScript()
-	{
-		Yii::app()->bootstrap->registerPackage('datetimepicker');
+	public function registerClientScript() {
+		
+        Booster::getBooster()->registerPackage('datetimepicker');
 	}
 
-	public function registerLanguageScript()
-	{
+	public function registerLanguageScript() {
+		
 		if (isset($this->options['language']) && $this->options['language'] != 'en') {
-			$file = 'locales/bootstrap-datepicker.' . $this->options['language'] . '.js';
-			if (@file_exists(Yii::getPathOfAlias('bootstrap.assets.bootstrap-datetimepicker') . '/js/' . $file)) {
-				if (Yii::app()->bootstrap->enableCdn) {
+			$file = 'locales/bootstrap-datetimepicker.' . $this->options['language'] . '.js';
+            $booster = Booster::getBooster();
+			if (@file_exists(Yii::getPathOfAlias('booster.assets.bootstrap-datetimepicker') . '/js/' . $file)) {
+				if ($booster->enableCdn) {
 					// Not in CDN yet
-					Yii::app()->bootstrap->registerAssetJs('locales/bootstrap-datetimepicker.' . $this->options['language'] . '.js');
+                    $booster->registerAssetJs('../bootstrap-datetimepicker/' . '/js/' . $file);
 				} else {
-					Yii::app()->bootstrap->registerAssetJs('locales/bootstrap-datetimepicker.' . $this->options['language'] . '.js');
+                    $booster->registerAssetJs('../bootstrap-datetimepicker/' . '/js/' . $file);
 				}
 			}
 		}
