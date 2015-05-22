@@ -56,32 +56,31 @@
 				<?php $this->widget('zii.widgets.CMenu',array(
 					'items'=>array(
 						array('label'=>'Inicio', 'url'=>array('site/index')),
-						array('label'=>'Ver', 'url'=>array('site/index'), 'items'=>array(
+						array('label'=>'Ver', 'url'=>array('#'), 'items'=>array(
 							array('label'=>'Usuarios', 'url'=>array('user/index')),
-							array('label'=>'Préstamos', 'url'=>array('site/index')),
-							array('label'=>'Mensajes', 'url'=>array('site/index')),
+							array('label'=>'Préstamos', 'url'=>array('loan/index')),
+							array('label'=>'Mensajes', 'url'=>array('message/index')),
 						)),
-						array('label'=>'Galería', 'url'=>array('site/index')),
-						array('label'=>'Libros', 'url'=>array('site/index'), 'items'=>array(
+						array('label'=>'Libros', 'url'=>array('book/index'), 'items'=>array(
 							array('label'=>'Estante Virtual', 'url'=>array('site/index')),
 							array('label'=>'Acervos', 'url'=>array('book/index')),
-							array('label'=>'Recomendacion', 'url'=>array('site/index')),
+							array('label'=>'Recomendacion', 'url'=>array('recommendation/index')),
 						)),
-						array('label'=>'Información', 'url'=>array('site/index'), 'items'=>array(
+						array('label'=>'Información', 'url'=>array('#'), 'items'=>array(
 							array('label'=>'Préstamos', 'url'=>array('site/index')),
 							array('label'=>'Carnet', 'url'=>array('site/index')),
 							array('label'=>'Identificación', 'url'=>array('site/index')),
 							array('label'=>'Calendario', 'url'=>array('site/index')),
 							array('label'=>'Servicio Local', 'url'=>array('site/index')),
 						)),
-						array('label'=>'Servicios', 'url'=>array('site/index'), 'items'=>array(
-							array('label'=>'Cursos', 'url'=>array('site/index')),
-							array('label'=>'Foros', 'url'=>array('site/index')),
-							array('label'=>'Juegos', 'url'=>array('site/index')),
+						array('label'=>'Servicios', 'url'=>array('#'), 'items'=>array(
+							array('label'=>'Cursos', 'url'=>array('course/index')),
+							array('label'=>'Foros', 'url'=>array('forum/index')),
+							array('label'=>'Juegos', 'url'=>array('game/index')),
 							array('label'=>'Video', 'url'=>array('site/index')),
 						)),
-						array('label'=>'Contacto', 'url'=>array('site/index'), 'items'=>array(
-							array('label'=>'Mensajes', 'url'=>array('site/index')),
+						array('label'=>'Contacto', 'url'=>array('message/create'), 'items'=>array(
+							array('label'=>'Mensajes', 'url'=>array('message/create')),
 							array('label'=>'Acerca de', 'url'=>array('/site/page', 'view'=>'about')),
 						)),
 						array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),

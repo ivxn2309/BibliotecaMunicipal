@@ -117,7 +117,7 @@ class BookController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->user->type === "0") {
+		if(Yii::app()->user->type === "1") {
 			$model=$this->loadModel($id);
 			$model->is_active = 0;
 			$model->save();
@@ -156,7 +156,7 @@ class BookController extends Controller
 				$arreglo[$idx++] = $testBook;
 			}			
 		}
-		$testBook = new Book();
+		$testBook = new BookEntity();
 		//Se genera un CArrayDataProvider a partir del nuevo arreglo
 		$gridDataProvider = new CArrayDataProvider($arreglo);
 		//Se definen las columnas y opciones

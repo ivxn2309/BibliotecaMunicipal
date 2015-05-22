@@ -15,7 +15,7 @@ class LoanController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -32,11 +32,11 @@ class LoanController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','delete'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -67,7 +67,7 @@ class LoanController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Loan']))
+		if(isset($_POST['Loan']) && Yii::app()->user->type === "1")
 		{
 			$model->attributes=$_POST['Loan'];
 			if($model->save())
@@ -91,7 +91,7 @@ class LoanController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Loan']))
+		if(isset($_POST['Loan']) && Yii::app()->user->type === "1")
 		{
 			$model->attributes=$_POST['Loan'];
 			if($model->save())
@@ -110,11 +110,16 @@ class LoanController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		if(Yii::app()->user->type === "1") {
+			$model=$this->loadModel($id);
+			$model->returned = 1;
+			$model->save();
+			//$this->loadModel($id)->delete();
+			$this->actionIndex();
+		}
+		else {
+			throw new CHttpException(400,'La petición es inválida');
+		}
 	}
 
 	/**
@@ -122,9 +127,52 @@ class LoanController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Loan');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+		//Se obtienen todos los registros de la tabla prestamos
+		$models=Loan::model()->findAll();
+		$arreglo = array();
+		$idx = 0;
+		//Se recorre la lista de libros
+		for($i=0;$i<sizeOf($models);$i++){
+			//Si el libro se encuentra activo
+			if($models[$i]->returned == 0){
+				//Se obtienen los objetos foraneos
+				$usr = User::model()->findByPk($models[$i]->user);
+				$lib = Book::model()->findByPk($models[$i]->book);
+				//Se genera un objeto de tipo BookEntity con los atributos deseados
+				$testLoan = new LoanEntity();
+				$testLoan->id=$idx;
+				$testLoan->loan_id=$models[$i]->loan_id;
+				$testLoan->user=$usr->firstname." ".$usr->surnames;
+				$testLoan->book=$lib->title.", ". $lib->author;
+				$testLoan->start_date=$models[$i]->start_date;
+				$testLoan->end_date=$models[$i]->end_date;
+				//El objeto es agregado a un segundo arreglo
+				$arreglo[$idx++] = $testLoan;
+			}			
+		}
+		$testLoan = new LoanEntity();
+		//Se genera un CArrayDataProvider a partir del nuevo arreglo
+		$gridDataProvider = new CArrayDataProvider($arreglo);
+		//Se definen las columnas y opciones
+		$gridColumns = array(
+			array('name'=>'id', 'header'=>'ID'),
+			array('name'=>'user', 'header'=>'Usuario'),
+			array('name'=>'book', 'header'=>'Libro'),
+			array('name'=>'start_date', 'header'=>'Fecha de Préstamo'),
+			array('name'=>'end_date', 'header'=>'Fecha de devolución.'),
+			array(
+				'htmlOptions' => array('nowrap'=>'nowrap'),
+				'class'=>'booster.widgets.TbButtonColumn',
+				'viewButtonUrl'=>'Yii::app()->createUrl("loan/view/", array("id"=>$data->loan_id))',
+				'updateButtonUrl'=>'Yii::app()->createUrl("loan/update/", array("id"=>$data->loan_id))',
+				'deleteButtonUrl'=>'Yii::app()->createUrl("loan/delete/", array("id"=>$data->loan_id))',
+			)
+		);
+		$this->render('index', array(
+			'models'=>$models,
+			'gridDataProvider'=>$gridDataProvider,
+			'gridColumns'=>$gridColumns,
+			'book'=>$testLoan
 		));
 	}
 
@@ -171,3 +219,4 @@ class LoanController extends Controller
 		}
 	}
 }
+class LoanEntity {}

@@ -3,18 +3,31 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Loans',
-);
-
-$this->menu=array(
-	array('label'=>'Create Loan', 'url'=>array('create')),
-	array('label'=>'Manage Loan', 'url'=>array('admin')),
+	'Ver',
+	'Prestamos',
 );
 ?>
 
-<h1>Loans</h1>
+<h2>Prestamos</h2>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<?php 
+if(Yii::app()->user->type === "1")
+	echo CHtml::link('Registrar Préstamo',array('loan/create'),array('class'=>'btn btn-default')); 
+?>
+<?php $this->widget(
+    'booster.widgets.TbGridView',
+    array(
+    	'type' => 'striped bordered condensed',
+        'dataProvider' => $gridDataProvider,
+        'template' => "{items}\n{pager}",
+        'columns' => $gridColumns,
+    )
+);?>
+
+<?php if(Yii::app()->user->type === "0"): ?>
+<style type="text/css">
+	a.view, a.update, a.delete {
+		visibility: hidden;
+	}
+</style>
+<?php endif; ?>

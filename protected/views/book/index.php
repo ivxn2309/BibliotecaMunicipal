@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h2>Books</h2>
+<h2>Libros</h2>
 
 <?php 
 if(Yii::app()->user->type === "1")
