@@ -5647,3 +5647,22 @@ Stack trace:
 REQUEST_URI=/biblioteca/loan/index
 HTTP_REFERER=http://localhost/biblioteca/loan/view/1
 ---
+2015/05/22 21:51:49 [error] [php] include(LoanEntity.php): failed to open stream: No such file or directory (C:\xampp\htdocs\biblioteca\protected\framework\YiiBase.php:421)
+Stack trace:
+#0 C:\xampp\htdocs\biblioteca\protected\controllers\MessageController.php(157): spl_autoload_call()
+#1 C:\xampp\htdocs\biblioteca\protected\framework\web\actions\CInlineAction.php(49): MessageController->actionIndex()
+#2 C:\xampp\htdocs\biblioteca\protected\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\xampp\htdocs\biblioteca\protected\framework\web\filters\CFilterChain.php(133): MessageController->runAction()
+#4 C:\xampp\htdocs\biblioteca\protected\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\xampp\htdocs\biblioteca\protected\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\xampp\htdocs\biblioteca\protected\framework\web\filters\CInlineFilter.php(58): MessageController->filterAccessControl()
+#7 C:\xampp\htdocs\biblioteca\protected\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\xampp\htdocs\biblioteca\protected\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\xampp\htdocs\biblioteca\protected\framework\web\CController.php(265): MessageController->runActionWithFilters()
+#10 C:\xampp\htdocs\biblioteca\protected\framework\web\CWebApplication.php(282): MessageController->run()
+#11 C:\xampp\htdocs\biblioteca\protected\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\xampp\htdocs\biblioteca\protected\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\xampp\htdocs\biblioteca\index.php(13): CWebApplication->run()
+REQUEST_URI=/biblioteca/message/index
+in C:\xampp\htdocs\biblioteca\protected\controllers\MessageController.php (157)
+in C:\xampp\htdocs\biblioteca\index.php (13)

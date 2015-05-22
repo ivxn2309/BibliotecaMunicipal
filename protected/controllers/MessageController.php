@@ -15,7 +15,7 @@ class MessageController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -32,11 +32,11 @@ class MessageController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','delete'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -67,7 +67,7 @@ class MessageController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Message']))
+		if(isset($_POST['Message']) && Yii::app()->user->type === "1")
 		{
 			$model->attributes=$_POST['Message'];
 			if($model->save())
@@ -91,7 +91,7 @@ class MessageController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Message']))
+		if(isset($_POST['Message']) && Yii::app()->user->type === "1")
 		{
 			$model->attributes=$_POST['Message'];
 			if($model->save())
@@ -110,11 +110,16 @@ class MessageController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		if(Yii::app()->user->type === "1") {
+			$model=$this->loadModel($id);
+			$model->is_active = 0;
+			$model->save();
+			//$this->loadModel($id)->delete();
+			$this->actionIndex();
+		}
+		else {
+			throw new CHttpException(400,'La petición es inválida');
+		}
 	}
 
 	/**
@@ -122,9 +127,56 @@ class MessageController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Message');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+		//Se obtienen todos los registros de la tabla Mensajes
+		$models=Message::model()->findAll();
+		$arreglo = array();
+		$idx = 0;
+		//Se recorre la lista de mensajes
+		for($i=0;$i<sizeOf($models);$i++){
+			//Si el libro se encuentra activo
+			if($models[$i]->is_active == 1){
+				//Se obtienen los objetos foraneos
+				$usr = User::model()->findByPk($models[$i]->user);
+				//Se genera un objeto de tipo BookEntity con los atributos deseados
+				$testMess = new MessageEntity();
+				$testMess->id=$idx+1;
+				$testMess->message_id=$models[$i]->message_id;
+				$testMess->user=$usr->firstname." ".$usr->surnames;
+				$testMess->subject=$models[$i]->subject;
+				$testMess->body=$models[$i]->body;
+				$testMess->sent_date=$models[$i]->sent_date;
+				if($models[$i]->is_read == 1)
+					$testMess->is_read="Leído";
+				else
+					$testMess->is_read="*** Nuevo ***";
+				$testMess->is_active=$models[$i]->is_active;
+				//El objeto es agregado a un segundo arreglo
+				$arreglo[$idx++] = $testMess;
+			}			
+		}
+		$testMess = new MessageEntity();
+		//Se genera un CArrayDataProvider a partir del nuevo arreglo
+		$gridDataProvider = new CArrayDataProvider($arreglo);
+		//Se definen las columnas y opciones
+		$gridColumns = array(
+			array('name'=>'id', 'header'=>'#'),
+			array('name'=>'sent_date', 'header'=>'Fecha'),
+			array('name'=>'user', 'header'=>'Remitente'),
+			array('name'=>'subject', 'header'=>'Asunto'),
+			array('name'=>'is_read', 'header'=>'Estado.'),
+			array(
+				'htmlOptions' => array('nowrap'=>'nowrap'),
+				'class'=>'booster.widgets.TbButtonColumn',
+				'viewButtonUrl'=>'Yii::app()->createUrl("message/view/", array("id"=>$data->message_id))',
+				'updateButtonUrl'=>'Yii::app()->createUrl("message/update/", array("id"=>$data->message_id))',
+				'deleteButtonUrl'=>'Yii::app()->createUrl("message/delete/", array("id"=>$data->message_id))',
+			)
+		);
+		$this->render('index', array(
+			'models'=>$models,
+			'gridDataProvider'=>$gridDataProvider,
+			'gridColumns'=>$gridColumns,
+			'mess'=>$testMess
 		));
 	}
 
@@ -171,3 +223,4 @@ class MessageController extends Controller
 		}
 	}
 }
+ class MessageEntity{}

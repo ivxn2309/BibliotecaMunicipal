@@ -3,18 +3,33 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Messages',
-);
-
-$this->menu=array(
-	array('label'=>'Create Message', 'url'=>array('create')),
-	array('label'=>'Manage Message', 'url'=>array('admin')),
+	'Ver',
+	'Mensajes',
 );
 ?>
 
-<h1>Messages</h1>
+<h2>Buzón de Entrada</h2>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<?php $this->widget(
+    'booster.widgets.TbGridView',
+    array(
+    	'type' => 'striped bordered condensed',
+        'dataProvider' => $gridDataProvider,
+        'template' => "{items}\n{pager}",
+        'columns' => $gridColumns,
+    )
+);?>
+
+<?php if(Yii::app()->user->type === "1"): ?>
+<style type="text/css">
+	a.update {
+		visibility: hidden;
+	}
+</style>
+<?php else: ?>
+<style type="text/css">
+	a.view, a.update, a.delete {
+		visibility: hidden;
+	}
+</style>
+<?php endif; ?>
