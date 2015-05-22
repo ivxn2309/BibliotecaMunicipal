@@ -64,7 +64,7 @@
 						array('label'=>'Galería', 'url'=>array('site/index')),
 						array('label'=>'Libros', 'url'=>array('site/index'), 'items'=>array(
 							array('label'=>'Estante Virtual', 'url'=>array('site/index')),
-							array('label'=>'Acervos', 'url'=>array('site/index')),
+							array('label'=>'Acervos', 'url'=>array('book/index')),
 							array('label'=>'Recomendacion', 'url'=>array('site/index')),
 						)),
 						array('label'=>'Información', 'url'=>array('site/index'), 'items'=>array(
@@ -85,7 +85,7 @@
 							array('label'=>'Acerca de', 'url'=>array('/site/page', 'view'=>'about')),
 						)),
 						array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-						array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+						array('label'=>"Cerrar", 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 					),
 				)); ?>
 			</nav>

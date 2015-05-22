@@ -11,16 +11,16 @@ class UserIdentity extends CUserIdentity
 
 	public function authenticate()
 	{
-		$user=Cuentas::model()->find("LOWER(username)=?", array(strtolower($this->username)));
+		$user=User::model()->find("LOWER(username)=?", array(strtolower($this->username)));
 
 		if($user===null)
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		else if(md5($this->password) !== $user->password)
+		else if(sha1($this->password) !== $user->password)
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
 		else{
 			$this->_id=$user->username;
-			$this->setState('type', $user->admin);
-			$this->setState('user_id', $user->user_id);
+			$this->setState('type', $user->usertype);
+			$this->setState('user_id', $user->firstname);
 			$this->errorCode=self::ERROR_NONE;
 		}
 		return !$this->errorCode;

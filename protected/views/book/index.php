@@ -3,18 +3,32 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Books',
-);
-
-$this->menu=array(
-	array('label'=>'Create Book', 'url'=>array('create')),
-	array('label'=>'Manage Book', 'url'=>array('admin')),
+	'Ver',
+	'Acervos',
 );
 ?>
 
-<h1>Books</h1>
+<h2>Books</h2>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<?php 
+if(Yii::app()->user->type === "1")
+	echo CHtml::link('Registrar libro',array('book/create'),array('class'=>'btn btn-default')); 
+?>
+<?php $this->widget(
+    'booster.widgets.TbGridView',
+    array(
+    	'type' => 'striped bordered condensed',
+        'dataProvider' => $gridDataProvider,
+        'template' => "{items}\n{pager}",
+        //'filter' => $book->search(),
+        'columns' => $gridColumns,
+    )
+);?>
+
+<?php if(Yii::app()->user->type === "0"): ?>
+<style type="text/css">
+	a.view, a.update, a.delete {
+		visibility: hidden;
+	}
+</style>
+<?php endif; ?>

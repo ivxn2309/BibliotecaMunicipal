@@ -15,7 +15,7 @@ class BookController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -32,11 +32,11 @@ class BookController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'delete'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -51,9 +51,16 @@ class BookController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+		$model=$this->loadModel($id);
+		if($model->is_active == 0) {
+			throw new CHttpException(402,'El libro solicitado fue borrado');
+		}
+		else {
+			$this->render('view',array(
+				'model'=>$this->loadModel($id),
+			));
+		}
+		
 	}
 
 	/**
@@ -91,7 +98,7 @@ class BookController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Book']))
+		if(isset($_POST['Book']) && Yii::app()->user->type === "1")
 		{
 			$model->attributes=$_POST['Book'];
 			if($model->save())
@@ -110,11 +117,16 @@ class BookController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		if(Yii::app()->user->type === "0") {
+			$model=$this->loadModel($id);
+			$model->is_active = 0;
+			$model->save();
+			//$this->loadModel($id)->delete();
+			$this->actionIndex();
+		}
+		else {
+			throw new CHttpException(400,'La petición es inválida');
+		}
 	}
 
 	/**
@@ -122,9 +134,53 @@ class BookController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Book');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+		//Se obtienen todos los registros de la tabla libros
+		$models=Book::model()->findAll();
+		$arreglo = array();
+		$idx = 0;
+		//Se recorre la lista de libros
+		for($i=0;$i<sizeOf($models);$i++){
+			//Si el libro se encuentra activo
+			if($models[$i]->is_active == 1){
+				//Se genera un objeto de tipo BookEntity con los atributos deseados
+				$testBook = new BookEntity();
+				$testBook->id=$idx;
+				$testBook->book_id=$models[$i]->book_id;
+				$testBook->signature=$models[$i]->signature;
+				$testBook->title=$models[$i]->title;
+				$testBook->author=$models[$i]->author;
+				$testBook->volume=$models[$i]->volume;
+				$testBook->copy=$models[$i]->copy;
+				$testBook->classification=$models[$i]->classification;
+				//El objeto es agregado a un segundo arreglo
+				$arreglo[$idx++] = $testBook;
+			}			
+		}
+		$testBook = new Book();
+		//Se genera un CArrayDataProvider a partir del nuevo arreglo
+		$gridDataProvider = new CArrayDataProvider($arreglo);
+		//Se definen las columnas y opciones
+		$gridColumns = array(
+			array('name'=>'id', 'header'=>'ID'),
+			array('name'=>'signature', 'header'=>'Signatura'),
+			array('name'=>'title', 'header'=>'Titulo'),
+			array('name'=>'author', 'header'=>'Autor'),
+			array('name'=>'volume', 'header'=>'Vol.'),
+			array('name'=>'copy', 'header'=>'Ejemplar'),
+			array('name'=>'classification', 'header'=>'Clasificacion'),
+			array(
+				'htmlOptions' => array('nowrap'=>'nowrap'),
+				'class'=>'booster.widgets.TbButtonColumn',
+				'viewButtonUrl'=>'Yii::app()->createUrl("book/view/", array("id"=>$data->book_id))',
+				'updateButtonUrl'=>'Yii::app()->createUrl("book/update/", array("id"=>$data->book_id))',
+				'deleteButtonUrl'=>'Yii::app()->createUrl("book/delete/", array("id"=>$data->book_id))',
+			)
+		);
+		$this->render('index', array(
+			'models'=>$models,
+			'gridDataProvider'=>$gridDataProvider,
+			'gridColumns'=>$gridColumns,
+			'book'=>$testBook
 		));
 	}
 
@@ -154,7 +210,7 @@ class BookController extends Controller
 	{
 		$model=Book::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,'La página solicitada no existe');
 		return $model;
 	}
 
@@ -171,3 +227,4 @@ class BookController extends Controller
 		}
 	}
 }
+class BookEntity {}

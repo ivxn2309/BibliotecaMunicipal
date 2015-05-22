@@ -33,17 +33,13 @@ class Book extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('signature, title', 'required'),
 			array('is_active', 'numerical', 'integerOnly'=>true),
 			array('signature', 'length', 'max'=>20),
 			array('title, author, copy, classification, image', 'length', 'max'=>100),
 			array('volume', 'length', 'max'=>5),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('book_id, signature, title, author, volume, copy, classification, image, is_active', 'safe', 'on'=>'search'),
+			array('book_id, signature, title, author, classification', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,13 +62,13 @@ class Book extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'book_id' => 'Book',
-			'signature' => 'Signature',
-			'title' => 'Title',
-			'author' => 'Author',
-			'volume' => 'Volume',
-			'copy' => 'Copy',
-			'classification' => 'Classification',
+			'book_id' => 'ID',
+			'signature' => 'Signatura',
+			'title' => 'Titulo',
+			'author' => 'Autor',
+			'volume' => 'Volumen',
+			'copy' => 'Ejemplar',
+			'classification' => 'Clasificacion',
 			'image' => 'Image',
 			'is_active' => 'Is Active',
 		);
@@ -92,19 +88,17 @@ class Book extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('book_id',$this->book_id);
 		$criteria->compare('signature',$this->signature,true);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('author',$this->author,true);
-		$criteria->compare('volume',$this->volume,true);
-		$criteria->compare('copy',$this->copy,true);
+		//$criteria->compare('volume',$this->volume,true);
+		//$criteria->compare('copy',$this->copy,true);
 		$criteria->compare('classification',$this->classification,true);
-		$criteria->compare('image',$this->image,true);
-		$criteria->compare('is_active',$this->is_active);
+		//$criteria->compare('image',$this->image,true);
+		//$criteria->compare('is_active',$this->is_active);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

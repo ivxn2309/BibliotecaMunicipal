@@ -14,7 +14,7 @@ class UserController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -31,11 +31,11 @@ class UserController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'delete'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -110,10 +110,7 @@ class UserController extends Controller
 	public function actionDelete($id)
 	{
 		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		$this->actionIndex();
 	}
 
 	/**
@@ -124,6 +121,7 @@ class UserController extends Controller
 		//Se obtienen todos los registros de la tabla usuarios
 		$models=User::model()->findAll();
 		$arreglo = array();
+		$idx = 0;
 		//Se recorre la lista de usuarios
 		for($i=0;$i<sizeOf($models);$i++){
 			//Si el usuario actual esta activo y no es bibliotecario
@@ -140,33 +138,35 @@ class UserController extends Controller
 				$testSubject->guarantor=$models[$i]->guarantor;
 				$testSubject->email=$models[$i]->email;
 				//El objeto es agregado a un segundo arreglo
-				$arreglo[$i] = $testSubject;
+				$arreglo[$idx++] = $testSubject;
 			}			
 		}
+		$testSubject = new UserEntity();
 		//Se genera un CarrayDataProvider a partir del nuevo arreglo
 		$gridDataProvider = new CArrayDataProvider($arreglo);
 		//Se definen las columnas y opciones
 		$gridColumns = array(
 			array('name'=>'username', 'header'=>'Username'),
-			array('name'=>'firstname', 'header'=>'First name'),
-			array('name'=>'surnames', 'header'=>'Last name'),
-			array('name'=>'address', 'header'=>'Address'),
-			array('name'=>'phone', 'header'=>'Phone'),
-			array('name'=>'age', 'header'=>'Age'),
-			array('name'=>'guarantor', 'header'=>'Guarantor'),
+			array('name'=>'firstname', 'header'=>'Nombre'),
+			array('name'=>'surnames', 'header'=>'Apellido'),
+			array('name'=>'address', 'header'=>'Direccion'),
+			array('name'=>'phone', 'header'=>'Telefono'),
+			array('name'=>'age', 'header'=>'Edad'),
+			array('name'=>'guarantor', 'header'=>'Fiador'),
 			array('name'=>'email', 'header'=>'E-mail'),
 			array(
 				'htmlOptions' => array('nowrap'=>'nowrap'),
 				'class'=>'booster.widgets.TbButtonColumn',
 				'viewButtonUrl'=>'Yii::app()->createUrl("user/view/", array("id"=>$data->username))',
-				'updateButtonUrl'=>'Yii::app()->createUrl("")',
-				'deleteButtonUrl'=>null,
+				'updateButtonUrl'=>'Yii::app()->createUrl("user/update/", array("id"=>$data->username))',
+				'deleteButtonUrl'=>'Yii::app()->createUrl("user/delete/", array("id"=>$data->username))',
 			)
 		);
 		$this->render('index', array(
 			'models'=>$models,
 			'gridDataProvider'=>$gridDataProvider,
 			'gridColumns'=>$gridColumns,
+			'user'=>$testSubject
 		));
 	}
 
@@ -194,17 +194,6 @@ class UserController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		/*
-		//Se obtienen todos los registros de la tabla usuarios
-		$users=User::model()->findAll();
-		for($i=0; $i < sizeOf($users); $i++) {
-			if($users[$i]->username===$id) {
-				return $users[$i];
-			}
-		}
-		throw new CHttpException(404,'The requested page does not exist.');
-		return null;
-		*/
 		$model=User::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');

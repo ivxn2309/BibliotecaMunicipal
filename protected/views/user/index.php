@@ -3,14 +3,14 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Users',
+	'Ver',
+	'Usuarios',
 );
 ?>
 
 <h2>Usuarios</h2>
-<?php
-
-$this->widget(
+<?php echo CHtml::link('Crear usuario nuevo',array('user/create'),array('class'=>'btn btn-default')); ?>
+<?php $this->widget(
     'booster.widgets.TbGridView',
     array(
     	'type' => 'striped bordered condensed',
@@ -18,5 +18,6 @@ $this->widget(
         'template' => "{items}\n{pager}",
         'columns' => $gridColumns,
     )
-);
-?>
+);?>
+
+

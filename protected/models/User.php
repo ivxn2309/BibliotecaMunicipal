@@ -35,8 +35,6 @@ class User extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('username, password, firstname, surnames, usertype, is_active', 'required'),
 			array('age, usertype, is_active', 'numerical', 'integerOnly'=>true),
@@ -44,8 +42,7 @@ class User extends CActiveRecord
 			array('password, firstname, surnames, address, guarantor, email', 'length', 'max'=>100),
 			array('phone', 'length', 'max'=>20),
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('username, password, firstname, surnames, address, phone, age, guarantor, email, usertype, is_active', 'safe', 'on'=>'search'),
+			array('username, firstname, surnames, address, age, email', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,13 +67,13 @@ class User extends CActiveRecord
 		return array(
 			'username' => 'Username',
 			'password' => 'Password',
-			'firstname' => 'Firstname',
-			'surnames' => 'Surnames',
-			'address' => 'Address',
-			'phone' => 'Phone',
-			'age' => 'Age',
-			'guarantor' => 'Guarantor',
-			'email' => 'Email',
+			'firstname' => 'Nombre',
+			'surnames' => 'Apellido',
+			'address' => 'Direccion',
+			'phone' => 'Telefono',
+			'age' => 'Edad',
+			'guarantor' => 'Fiador',
+			'email' => 'E-mail',
 			'usertype' => 'Usertype',
 			'is_active' => 'Is Active',
 		);
@@ -96,21 +93,19 @@ class User extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('username',$this->username,true);
-		$criteria->compare('password',$this->password,true);
+		//$criteria->compare('password',$this->password,true);
 		$criteria->compare('firstname',$this->firstname,true);
 		$criteria->compare('surnames',$this->surnames,true);
 		$criteria->compare('address',$this->address,true);
-		$criteria->compare('phone',$this->phone,true);
+		//$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('age',$this->age);
-		$criteria->compare('guarantor',$this->guarantor,true);
+		//$criteria->compare('guarantor',$this->guarantor,true);
 		$criteria->compare('email',$this->email,true);
-		$criteria->compare('usertype',$this->usertype);
-		$criteria->compare('is_active',$this->is_active);
+		//$criteria->compare('usertype',$this->usertype);
+		//$criteria->compare('is_active',$this->is_active);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
