@@ -1,20 +1,35 @@
 <?php
-/* @var $this RecommendationController */
+/* @var $this MessageController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Recommendations',
-);
-
-$this->menu=array(
-	array('label'=>'Create Recommendation', 'url'=>array('create')),
-	array('label'=>'Manage Recommendation', 'url'=>array('admin')),
+	'Libros',
+	'Recomendaciones',
 );
 ?>
 
-<h1>Recommendations</h1>
+<h2>Recomendaciones</h2>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<?php $this->widget(
+    'booster.widgets.TbGridView',
+    array(
+    	'type' => 'striped bordered condensed',
+        'dataProvider' => $gridDataProvider,
+        'template' => "{items}\n{pager}",
+        'columns' => $gridColumns,
+    )
+);?>
+
+<?php if(Yii::app()->user->type === "1"): ?>
+<style type="text/css">
+	a.update {
+		visibility: hidden;
+	}
+</style>
+<?php else: ?>
+<style type="text/css">
+	a.view, a.update, a.delete {
+		visibility: hidden;
+	}
+</style>
+<?php endif; ?>

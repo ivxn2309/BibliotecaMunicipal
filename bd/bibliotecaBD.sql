@@ -181,6 +181,10 @@ INSERT INTO Course VALUES (NULL, "Mis vacaciones en la biblioteca",
     "Fomento a la lectura leyendas, cuentos y manualidades", 
     "10 am-3 pm duracion 4 semanas", 1);
 -- ------------------------------------------------
+-- Recommendation
+-- ------------------------------------------------
+INSERT INTO Recommendation VALUES (NULL, 25, "2015/5/22", "El presidente", 1);
+-- ------------------------------------------------
 -- Book
 -- ------------------------------------------------
 INSERT INTO Book VALUES (NULL, "70.4074", "La especialización en el periodísmo", "Pedro Orive y Concha Fagoaga", "NULL", "Ej 1", "Obras generales", "especializacion.png", 1);

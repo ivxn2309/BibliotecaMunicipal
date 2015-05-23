@@ -65,26 +65,28 @@
 							array('label'=>'Estante Virtual', 'url'=>array('site/index')),
 							array('label'=>'Acervos', 'url'=>array('book/index')),
 							array('label'=>'Recomendacion', 'url'=>array('recommendation/index')),
+							array('label'=>'Clasificación', 'url'=>array('site/page', 'view'=>'clasificacion')),
 						)),
 						array('label'=>'Información', 'url'=>array('#'), 'items'=>array(
-							array('label'=>'Préstamos', 'url'=>array('site/index')),
-							array('label'=>'Carnet', 'url'=>array('site/index')),
-							array('label'=>'Identificación', 'url'=>array('site/index')),
-							array('label'=>'Calendario', 'url'=>array('site/index')),
-							array('label'=>'Servicio Local', 'url'=>array('site/index')),
+							array('label'=>'Préstamos', 'url'=>array('site/page', 'view'=>'prestamos')),
+							array('label'=>'Carnet', 'url'=>array('site/page', 'view'=>'carnet')),
+							array('label'=>'Calendario', 'url'=>array('site/page', 'view'=>'calendario')),
+							array('label'=>'Servicio Local', 'url'=>array('site/page', 'view'=>'local')),
 						)),
 						array('label'=>'Servicios', 'url'=>array('#'), 'items'=>array(
 							array('label'=>'Cursos', 'url'=>array('course/index')),
 							array('label'=>'Foros', 'url'=>array('forum/index')),
 							array('label'=>'Juegos', 'url'=>array('game/index')),
-							array('label'=>'Video', 'url'=>array('site/index')),
+							array('label'=>'Video', 'url'=>array('site/page', 'view'=>'video')),
 						)),
 						array('label'=>'Contacto', 'url'=>array('message/create'), 'items'=>array(
 							array('label'=>'Mensajes', 'url'=>array('message/create')),
 							array('label'=>'Acerca de', 'url'=>array('/site/page', 'view'=>'about')),
 						)),
 						array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-						array('label'=>"Cerrar", 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+						array('label'=>Yii::app()->user->name, 'url'=>array('#'), 'visible'=>!Yii::app()->user->isGuest, 'items'=>array(
+							array('label'=>'Cerrar', 'url'=>array('/site/logout')),
+						))
 					),
 				)); ?>
 			</nav>
@@ -124,6 +126,8 @@
 </div>
 </div>
 -->
+
+<!--
 	<section class="services grid-wrap">
 		<header class="grid col-full">
 			<hr>
@@ -150,59 +154,58 @@
 		</article>
 	</section>
 
-<section class="works grid-wrap">
-	<header class="grid col-full">
+	<section class="works grid-wrap">
+		<header class="grid col-full">
 			<hr>
 			<p class="fleft">Works</p>
 			<a href="#" class="arrow fright">see more works</a>
 		</header>
-	
-			<figure class="grid col-one-quarter mq2-col-one-half">
-				<a href="#">
-				<img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img.jpg" alt="">
-				<span class="zoom"></span>
-				</a>
-				<figcaption>
-					<a href="#" class="arrow">Project page!</a>
-					<p>Lorem ipsum dolor set amet</p>
-				</figcaption>
-			</figure>
 
-			<figure class="grid col-one-quarter mq2-col-one-half">
-				<a href="#">
-				<img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img.jpg" alt="">
-				<span class="zoom"></span>
-				</a>
-				<figcaption>
-					<a href="#" class="arrow">Project x</a>
-					<p>Lorem ipsum dolor set amet</p>
-				</figcaption>
-			</figure>
-		
-			<figure class="grid col-one-quarter mq2-col-one-half">
-				<a href="#">
-				<img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img.jpg" alt="">
-				<span class="zoom"></span>
-				</a>
-				<figcaption>
-					<a href="#" class="arrow">Project x</a>
-					<p>Lorem ipsum dolor set amet</p>
-				</figcaption>
-			</figure>
-		
-			<figure class="grid col-one-quarter mq2-col-one-half">
-				<a href="#">
-				<img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img.jpg" alt="">
-				<span class="zoom"></span>
-				</a>
-				<figcaption>
-					<a href="#" class="arrow">Project x</a>
-					<p>Lorem ipsum dolor set amet</p>
-				</figcaption>
-			</figure>
+		<figure class="grid col-one-quarter mq2-col-one-half">
+			<a href="#">
+			<img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img.jpg" alt="">
+			<span class="zoom"></span>
+			</a>
+			<figcaption>
+				<a href="#" class="arrow">Project page!</a>
+				<p>Lorem ipsum dolor set amet</p>
+			</figcaption>
+		</figure>
+
+		<figure class="grid col-one-quarter mq2-col-one-half">
+			<a href="#">
+			<img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img.jpg" alt="">
+			<span class="zoom"></span>
+			</a>
+			<figcaption>
+				<a href="#" class="arrow">Project x</a>
+				<p>Lorem ipsum dolor set amet</p>
+			</figcaption>
+		</figure>
+
+		<figure class="grid col-one-quarter mq2-col-one-half">
+			<a href="#">
+			<img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img.jpg" alt="">
+			<span class="zoom"></span>
+			</a>
+			<figcaption>
+				<a href="#" class="arrow">Project x</a>
+				<p>Lorem ipsum dolor set amet</p>
+			</figcaption>
+		</figure>
+
+		<figure class="grid col-one-quarter mq2-col-one-half">
+			<a href="#">
+			<img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/img.jpg" alt="">
+			<span class="zoom"></span>
+			</a>
+			<figcaption>
+				<a href="#" class="arrow">Project x</a>
+				<p>Lorem ipsum dolor set amet</p>
+			</figcaption>
+		</figure>
 	</section>
-</div> <!--main-->
-
+</div> --><!--main-->
 <div class="divide-top">
 	<footer class="grid-wrap">
 		<ul class="grid col-one-third social">
