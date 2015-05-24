@@ -56,11 +56,11 @@ class Forum extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'forum_id' => 'Forum',
-			'name' => 'Name',
-			'description' => 'Description',
-			'start_date' => 'Start Date',
-			'is_active' => 'Is Active',
+			'forum_id' => 'Foro',
+			'name' => 'Nombre',
+			'description' => 'Descripción',
+			'start_date' => 'Fecha',
+			'is_active' => 'Activo',
 		);
 	}
 

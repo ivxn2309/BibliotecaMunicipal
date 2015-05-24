@@ -67,7 +67,7 @@ class CourseController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Course']))
+		if(isset($_POST['Course']) && Yii::app()->user->type === "1")
 		{
 			$model->attributes=$_POST['Course'];
 			if($model->save())
@@ -91,7 +91,7 @@ class CourseController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Course']))
+		if(isset($_POST['Course']) && Yii::app()->user->type === "1")
 		{
 			$model->attributes=$_POST['Course'];
 			if($model->save())
@@ -110,12 +110,17 @@ class CourseController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$model = $this->loadModel($id);
-		$model->is_active = 0;
+		if(Yii::app()->user->type === "1"){
+			$model = $this->loadModel($id);
+			$model->is_active = 0;
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if($model->save())
-			$this->redirect(array('index',));
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if($model->save())
+				$this->redirect(array('index',));
+		}
+		else {
+			throw new CHttpException(400,'La petición es inválida');
+		}
 	}
 
 	/**

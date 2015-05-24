@@ -15,7 +15,7 @@ class ForumController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -32,11 +32,11 @@ class ForumController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','delete'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -67,7 +67,7 @@ class ForumController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Forum']))
+		if(isset($_POST['Forum']) && Yii::app()->user->type === "1")
 		{
 			$model->attributes=$_POST['Forum'];
 			if($model->save())
@@ -91,7 +91,7 @@ class ForumController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Forum']))
+		if(isset($_POST['Forum']) && Yii::app()->user->type === "1")
 		{
 			$model->attributes=$_POST['Forum'];
 			if($model->save())
@@ -110,11 +110,17 @@ class ForumController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		if(Yii::app()->user->type === "1"){
+			$model = $this->loadModel($id);
+			$model->is_active = 0;
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if($model->save())
+				$this->redirect(array('index',));
+		}
+		else {
+			throw new CHttpException(400,'La petición es inválida');
+		}
 	}
 
 	/**
@@ -122,9 +128,16 @@ class ForumController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Forum');
+		$allModels = Forum::model()->findAll();
+		$models = array();
+		$j = 0;
+		for($i=0;$i<sizeof($allModels);$i++){
+			if($allModels[$i]->is_active === "1")
+				$models[$j++] = $allModels[$i];
+		}
+
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'models'=>$models,
 		));
 	}
 

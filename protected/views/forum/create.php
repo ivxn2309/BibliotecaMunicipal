@@ -3,16 +3,12 @@
 /* @var $model Forum */
 
 $this->breadcrumbs=array(
-	'Forums'=>array('index'),
-	'Create',
+	'Foro'=>array('index'),
+	'Crear',
 );
 
-$this->menu=array(
-	array('label'=>'List Forum', 'url'=>array('index')),
-	array('label'=>'Manage Forum', 'url'=>array('admin')),
-);
 ?>
 
-<h1>Create Forum</h1>
+<h2>Crear Foro</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -3,16 +3,12 @@
 /* @var $model Game */
 
 $this->breadcrumbs=array(
-	'Games'=>array('index'),
-	'Create',
+	'Juegos'=>array('index'),
+	'Crear',
 );
 
-$this->menu=array(
-	array('label'=>'List Game', 'url'=>array('index')),
-	array('label'=>'Manage Game', 'url'=>array('admin')),
-);
 ?>
 
-<h1>Create Game</h1>
+<h2>Crear juego</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

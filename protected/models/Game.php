@@ -31,7 +31,7 @@ class Game extends CActiveRecord
 			array('name, description', 'required'),
 			array('is_active', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>50),
-			array('description', 'length', 'max'=>200),
+			array('description', 'length', 'max'=>900),
 			array('start_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -56,11 +56,11 @@ class Game extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'game_id' => 'Game',
-			'name' => 'Name',
-			'description' => 'Description',
-			'start_date' => 'Start Date',
-			'is_active' => 'Is Active',
+			'game_id' => 'Juego',
+			'name' => 'Nombre',
+			'description' => 'Descripción',
+			'start_date' => 'Fecha',
+			'is_active' => 'Activo',
 		);
 	}
 

@@ -37,7 +37,7 @@ class Message extends CActiveRecord
 			array('is_read, is_active', 'numerical', 'integerOnly'=>true),
 			array('user', 'length', 'max'=>50),
 			array('subject', 'length', 'max'=>100),
-			array('body', 'length', 'max'=>200),
+			array('body', 'length', 'max'=>900),
 			array('sent_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -63,12 +63,12 @@ class Message extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'message_id' => 'Message',
-			'user' => 'User',
-			'subject' => 'Subject',
-			'body' => 'Body',
-			'sent_date' => 'Sent Date',
-			'is_read' => 'Is Read',
+			'message_id' => 'ID',
+			'user' => 'Usuario',
+			'subject' => 'Asunto',
+			'body' => 'Mensaje',
+			'sent_date' => 'Fecha',
+			'is_read' => 'Estado',
 			'is_active' => 'Is Active',
 		);
 	}

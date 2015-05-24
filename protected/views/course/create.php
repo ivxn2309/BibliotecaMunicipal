@@ -3,16 +3,12 @@
 /* @var $model Course */
 
 $this->breadcrumbs=array(
-	'Courses'=>array('index'),
-	'Create',
+	'Cursos'=>array('index'),
+	'Crear',
 );
 
-$this->menu=array(
-	array('label'=>'List Course', 'url'=>array('index')),
-	array('label'=>'Manage Course', 'url'=>array('admin')),
-);
 ?>
 
-<h1>Create Course</h1>
+<h2>Crear un curso nuevo</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

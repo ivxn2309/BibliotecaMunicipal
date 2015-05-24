@@ -3,19 +3,13 @@
 /* @var $model Forum */
 
 $this->breadcrumbs=array(
-	'Forums'=>array('index'),
+	'Foro'=>array('index'),
 	$model->name=>array('view','id'=>$model->forum_id),
-	'Update',
+	'Actualizar',
 );
 
-$this->menu=array(
-	array('label'=>'List Forum', 'url'=>array('index')),
-	array('label'=>'Create Forum', 'url'=>array('create')),
-	array('label'=>'View Forum', 'url'=>array('view', 'id'=>$model->forum_id)),
-	array('label'=>'Manage Forum', 'url'=>array('admin')),
-);
 ?>
 
-<h1>Update Forum <?php echo $model->forum_id; ?></h1>
+<h2>Editar foro #<?php echo $model->forum_id; ?></h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

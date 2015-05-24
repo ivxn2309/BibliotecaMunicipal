@@ -3,19 +3,13 @@
 /* @var $model Book */
 
 $this->breadcrumbs=array(
-	'Books'=>array('index'),
+	'Libros'=>array('index'),
 	$model->title=>array('view','id'=>$model->book_id),
-	'Update',
+	'Actualizar',
 );
 
-$this->menu=array(
-	array('label'=>'List Book', 'url'=>array('index')),
-	array('label'=>'Create Book', 'url'=>array('create')),
-	array('label'=>'View Book', 'url'=>array('view', 'id'=>$model->book_id)),
-	array('label'=>'Manage Book', 'url'=>array('admin')),
-);
 ?>
 
-<h1>Update Book <?php echo $model->book_id; ?></h1>
+<h2>Editar libro "<?php echo $model->title; ?>"</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS Game;
 CREATE TABLE IF NOT EXISTS Game (
     game_id SERIAL,
     name VARCHAR(50) NOT NULL,
-    description VARCHAR(200) NOT NULL,
+    description VARCHAR(900) NOT NULL,
     start_date DATE,
     is_active TINYINT(1),
     PRIMARY KEY(game_id)
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS Message (
     message_id SERIAL,
     user VARCHAR(50) NOT NULL,
     subject VARCHAR(100),
-    body VARCHAR(200),
+    body VARCHAR(900),
     sent_date DATE,
     is_read TINYINT(1) NOT NULL,
     is_active TINYINT(1) NOT NULL,
@@ -180,6 +180,37 @@ INSERT INTO Library VALUES (1, "Lic. Pedro Vélez y Zúñiga",
 INSERT INTO Course VALUES (NULL, "Mis vacaciones en la biblioteca", 
     "Fomento a la lectura leyendas, cuentos y manualidades", 
     "10 am-3 pm duracion 4 semanas", 1);
+-- ------------------------------------------------
+-- Game
+-- ------------------------------------------------
+INSERT INTO Game VALUES (NULL, "La Gallina Ciega", 
+    "Para este juego hace falta un grupo de niños, mínimo cuatro, y un pañuelo. A continuación, de entre el grupo elegimos a un niño que se tendrá que tapar los ojos con el pañuelo y finalmente le darán vueltas cantando la siguiente canción: 'Gallinita ciega que se te ha perdido una dedal date la vuelta y lo encontrarás' para despistarlo. El niño que tiene tapado los ojos tendrá que encontrar a los demás.", 
+    NULL, 1);
+
+INSERT INTO Game VALUES (NULL, "El avioncito", 
+    "Se puede jugar de manera individual, pero para mayor diversión se recomienda que sean dos o más los integrantes del juego. Se coge una tiza blanca y en las losas del suelo se dibujan cuadrados y se numeran del uno al diez. Después cada niño debe coger una bolita o una piedrecita pequeña e ir tirando a cada número intentando que la piedra entre dentro de ese cuadrado porque de no hacerlo pierde su turno y le toca al siguiente. Gana el primero en llegar al diez.", 
+    NULL, 1);
+
+INSERT INTO Game VALUES (NULL, "Las canicas", 
+    "Se trata de un juego de puntería y precisión en el cual deberemos tocar a la canica objetivo con nuestra bola que será lanzada con nuestro dedo pulgar. Por supuesto, no está permitido ayudarnos arrastrando la mano o acompañar el lanzamiento con un movimiento. Existen varias modalidades para jugar a este juego. Entre las existentes algunas de las más interesantes son: Bombardero y círculo.", 
+    NULL, 1);
+
+INSERT INTO Game VALUES (NULL, "Sillas musicales", 
+    "Para realizar este juego se necesitan sillas resistentes, al menos tantas como personas haya menos una, y música que se pueda iniciar y parar a voluntad: Se colocan todas las sillas formando un círculo con los respaldos hacia dentro. Los jugadores están de pie delante de ellas, excepto una persona que controlará la música. Se colocará siempre una silla menos que personas estén jugando o dando vueltas. Cuando empiece a sonar la música, los jugadores deben girar alrededor de las sillas siguiendo el ritmo. En el momento que para la música, cada persona intentara sentarse en una de las sillas. Quien se queda sin sentarse en una silla quedara eliminado. Entonces se retira una silla, se recompone el círculo y vuelve a sonar la música. Se repite el juego hasta que la última ronda se hace con una sola silla y dos jugadores. Gana el que queda sentado en la última silla.", 
+    NULL, 1);
+
+INSERT INTO Game VALUES (NULL, "El juego del trompo", 
+    "Es uno de los juegos más populares del siglo XX, también uno de los más antiguos. Una de las formas colectivas de jugar era formando un círculo en el suelo, en cuyo centro se colocaba un trompo dando vueltas para que los demás jugadores chocaran su trompo con éste. El que fallaba, dejaba su trompo ocupando la posición del anterior.", 
+    NULL, 1);
+
+INSERT INTO Game VALUES (NULL, "El cometa", 
+    "Es un artefacto volador más pesado que el aire, que vuela gracias a la fuerza del viento y a uno o varios hilos que la mantienen desde tierra en su postura correcta de vuelo. Debido a su propia construcción lo habitual es desplegar las cometas en lugares abiertos y ventosos, como descampados o playas, etc.", 
+    NULL, 1);
+
+INSERT INTO Game VALUES (NULL, "La liga", 
+    "La liga es un juego que tiene especial aceptación entre las niñas. Para llevarlo a cabo, se utiliza una liga elástica unida con un nudo por los extremos. Dos niñas se ponen en los laterales sujetándola con las piernas abiertas de modo que quede un espacio en el medio para saltar. Entonces, una o varias niñas tienen que realizar determinados ejercicios al ritmo de canciones y palmadas que interpretan las participaciones. En el momento en que una falla el ejercicio, pierde pasando a sujetar la liga.", 
+    NULL, 1);
+
 -- ------------------------------------------------
 -- Recommendation
 -- ------------------------------------------------

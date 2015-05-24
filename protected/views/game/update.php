@@ -3,19 +3,12 @@
 /* @var $model Game */
 
 $this->breadcrumbs=array(
-	'Games'=>array('index'),
+	'Juegos'=>array('index'),
 	$model->name=>array('view','id'=>$model->game_id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List Game', 'url'=>array('index')),
-	array('label'=>'Create Game', 'url'=>array('create')),
-	array('label'=>'View Game', 'url'=>array('view', 'id'=>$model->game_id)),
-	array('label'=>'Manage Game', 'url'=>array('admin')),
+	'Actualizar',
 );
 ?>
 
-<h1>Update Game <?php echo $model->game_id; ?></h1>
+<h2>Actualizar juego #<?php echo $model->game_id; ?></h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -63,7 +63,6 @@ class MessageController extends Controller
 	public function actionCreate()
 	{
 		$model=new Message;
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 

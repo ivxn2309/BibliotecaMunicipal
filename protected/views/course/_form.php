@@ -13,9 +13,11 @@
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
-)); ?>
+)); 
+$model->is_active = 1;
+?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Los campos con <span class="required">*</span> son obligatorios.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -37,16 +39,27 @@
 		<?php echo $form->error($model,'schedule'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row" style="display:none;">
 		<?php echo $form->labelEx($model,'is_active'); ?>
 		<?php echo $form->textField($model,'is_active'); ?>
 		<?php echo $form->error($model,'is_active'); ?>
-	</div>
+	</div><br>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar'); ?>
+		<br><br>
+		<?php echo CHtml::link('Volver a la colección de cursos',array('course/index'),array('class'=>'btn btn-success btn-large'));?>
 	</div>
 
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+<style type="text/css">
+	#course-form {
+		text-align: center;
+	}
+	label {
+		margin-bottom: 2px;
+	}
+</style>

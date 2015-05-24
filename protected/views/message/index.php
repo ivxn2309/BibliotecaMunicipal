@@ -21,8 +21,11 @@ $this->breadcrumbs=array(
 );?>
 
 <?php if(Yii::app()->user->type === "1"): ?>
-
-
+<style type="text/css">
+    a.update {
+        visibility: hidden;
+    }
+</style>
 <?php else: ?>
 <style type="text/css">
 	a.view, a.update, a.delete {

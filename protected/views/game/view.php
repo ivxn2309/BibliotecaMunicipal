@@ -3,20 +3,12 @@
 /* @var $model Game */
 
 $this->breadcrumbs=array(
-	'Games'=>array('index'),
+	'Juegos'=>array('index'),
 	$model->name,
-);
-
-$this->menu=array(
-	array('label'=>'List Game', 'url'=>array('index')),
-	array('label'=>'Create Game', 'url'=>array('create')),
-	array('label'=>'Update Game', 'url'=>array('update', 'id'=>$model->game_id)),
-	array('label'=>'Delete Game', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->game_id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Game', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View Game #<?php echo $model->game_id; ?></h1>
+<h2>Juego #<?php echo $model->game_id; ?></h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -25,6 +17,5 @@ $this->menu=array(
 		'name',
 		'description',
 		'start_date',
-		'is_active',
 	),
 )); ?>

@@ -74,7 +74,7 @@ class BookController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Book']))
+		if(isset($_POST['Book']) && Yii::app()->user->type === "1")
 		{
 			$model->attributes=$_POST['Book'];
 			if($model->save())
@@ -136,6 +136,7 @@ class BookController extends Controller
 	{
 		//Se obtienen todos los registros de la tabla libros
 		$models=Book::model()->findAll();
+		$actives = array();
 		$arreglo = array();
 		$idx = 0;
 		//Se recorre la lista de libros
@@ -152,7 +153,8 @@ class BookController extends Controller
 				$testBook->volume=$models[$i]->volume;
 				$testBook->copy=$models[$i]->copy;
 				$testBook->classification=$models[$i]->classification;
-				//El objeto es agregado a un segundo arreglo
+				//El objeto es agregado a un segundo y tercer arreglo
+				$actives[$idx] = $models[$i];
 				$arreglo[$idx++] = $testBook;
 			}			
 		}
@@ -176,11 +178,17 @@ class BookController extends Controller
 				'deleteButtonUrl'=>'Yii::app()->createUrl("book/delete/", array("id"=>$data->book_id))',
 			)
 		);
+		$virtual = false;
+		if(isset($_GET['img'])) {
+			$virtual = true;
+		}
+
 		$this->render('index', array(
-			'models'=>$models,
+			'models'=>$actives,
 			'gridDataProvider'=>$gridDataProvider,
 			'gridColumns'=>$gridColumns,
-			'book'=>$testBook
+			'book'=>$testBook,
+			'virtual'=>$virtual
 		));
 	}
 

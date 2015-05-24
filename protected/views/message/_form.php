@@ -15,50 +15,69 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<?php 
+	    $model->user = Yii::app()->user->name;
+	    $today = getdate();
+		$hoy = $today['year']."/".$today['mon']."/".$today['mday'];
+		$model->sent_date = $hoy
+	?>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div class="row" style="display:none;">
 		<?php echo $form->labelEx($model,'user'); ?>
-		<?php echo $form->textField($model,'user',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'user', array('size'=>60,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'user'); ?>
-	</div>
+	</div><br>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'subject'); ?>
 		<?php echo $form->textField($model,'subject',array('size'=>60,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'subject'); ?>
-	</div>
+	</div><br>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
-		<?php echo $form->textField($model,'body',array('size'=>60,'maxlength'=>200)); ?>
+		<?php echo $form->textField($model,'body',array('size'=>60,'maxlength'=>900)); ?>
 		<?php echo $form->error($model,'body'); ?>
-	</div>
+	</div><br>
 
-	<div class="row">
+	<div class="row" style="display:none;">		
 		<?php echo $form->labelEx($model,'sent_date'); ?>
-		<?php echo $form->textField($model,'sent_date'); ?>
+		<?php echo $form->textField($model,'sent_date',array('size'=>60,'maxlength'=>10)); ?>
 		<?php echo $form->error($model,'sent_date'); ?>
-	</div>
+	</div><br>
+	<?php 
+		$model->is_read = 0;
+		$model->is_active = 1;
+	?>
 
-	<div class="row">
+	<div class="row" style="display:none;">
 		<?php echo $form->labelEx($model,'is_read'); ?>
 		<?php echo $form->textField($model,'is_read'); ?>
 		<?php echo $form->error($model,'is_read'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row" style="display:none;">
 		<?php echo $form->labelEx($model,'is_active'); ?>
 		<?php echo $form->textField($model,'is_active'); ?>
 		<?php echo $form->error($model,'is_active'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Enviar' : 'Guardar'); ?><br><br>
+		<?php if(!$model->isNewRecord) echo CHtml::link('Volver al buzón',array('message/index'),array('class'=>'btn btn-success btn-large'));?>
 	</div>
 
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+<style type="text/css">
+	#message-form {
+		text-align: center;
+	}
+	label {
+		margin-bottom: 2px;
+	}
+</style>

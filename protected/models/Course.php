@@ -56,11 +56,11 @@ class Course extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'course_id' => 'Course',
-			'name' => 'Name',
-			'description' => 'Description',
-			'schedule' => 'Schedule',
-			'is_active' => 'Is Active',
+			'course_id' => 'Curso',
+			'name' => 'Nombre',
+			'description' => 'Descripción',
+			'schedule' => 'Horario',
+			'is_active' => 'Activo',
 		);
 	}
 

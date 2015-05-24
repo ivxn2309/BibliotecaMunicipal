@@ -64,11 +64,11 @@ class Book extends CActiveRecord
 		return array(
 			'book_id' => 'ID',
 			'signature' => 'Signatura',
-			'title' => 'Titulo',
+			'title' => 'Título',
 			'author' => 'Autor',
 			'volume' => 'Volumen',
 			'copy' => 'Ejemplar',
-			'classification' => 'Clasificacion',
+			'classification' => 'Clasificación',
 			'image' => 'Image',
 			'is_active' => 'Is Active',
 		);

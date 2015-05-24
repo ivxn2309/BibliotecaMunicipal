@@ -61,12 +61,12 @@ class Loan extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'loan_id' => 'Loan',
-			'user' => 'User',
-			'book' => 'Book',
-			'start_date' => 'Start Date',
-			'end_date' => 'End Date',
-			'returned' => 'Returned',
+			'loan_id' => 'Folio',
+			'user' => 'Usuario',
+			'book' => 'Libro',
+			'start_date' => 'Fecha de Préstamo',
+			'end_date' => 'Fecha de Entrega',
+			'returned' => 'Estado',
 		);
 	}
 

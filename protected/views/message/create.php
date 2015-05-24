@@ -3,16 +3,12 @@
 /* @var $model Message */
 
 $this->breadcrumbs=array(
-	'Messages'=>array('index'),
-	'Create',
+	'Mensajes'=>array('index'),
+	'Crear',
 );
 
-$this->menu=array(
-	array('label'=>'List Message', 'url'=>array('index')),
-	array('label'=>'Manage Message', 'url'=>array('admin')),
-);
 ?>
 
-<h1>Create Message</h1>
+<h2>Redactar mensaje</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
