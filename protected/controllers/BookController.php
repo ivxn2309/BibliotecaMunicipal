@@ -117,7 +117,7 @@ class BookController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->user->type === "1") {
+		if(Yii::app()->user->type2 === "1") {
 			$model=$this->loadModel($id);
 			$model->is_active = 0;
 			$model->save();

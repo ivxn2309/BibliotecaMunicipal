@@ -67,7 +67,7 @@ class RecommendationController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Recommendation']) && Yii::app()->user->type === "1")
+		if(isset($_POST['Recommendation']) /*&& Yii::app()->user->type === "1"*/)
 		{
 			$model->attributes=$_POST['Recommendation'];
 			if($model->save())
@@ -91,7 +91,7 @@ class RecommendationController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Recommendation']) && Yii::app()->user->type === "1")
+		if(isset($_POST['Recommendation']) /*&& Yii::app()->user->type === "1"*/)
 		{
 			$model->attributes=$_POST['Recommendation'];
 			if($model->save())
@@ -110,16 +110,16 @@ class RecommendationController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->user->type === "1") {
+		//if(Yii::app()->user->type === "1") {
 			$model=$this->loadModel($id);
 			$model->is_active = 0;
 			$model->save();
 			//$this->loadModel($id)->delete();
 			$this->actionIndex();
-		}
-		else {
-			throw new CHttpException(400,'La petición es inválida');
-		}
+		//}
+		//else {
+		//	throw new CHttpException(400,'La petición es inválida');
+		//}
 	}
 
 	/**

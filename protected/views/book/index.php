@@ -28,7 +28,7 @@
   );?>
 
 
-  <?php if(Yii::app()->user->type !== "1"): ?>
+  <?php if(Yii::app()->user->type2 !== "1"): ?>
   <style type="text/css">
   	a.view, a.update, a.delete {
   		visibility: hidden;

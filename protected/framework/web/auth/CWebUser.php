@@ -62,7 +62,7 @@ class CWebUser extends CApplicationComponent implements IWebUser
 	const STATES_VAR='__states';
 	const AUTH_TIMEOUT_VAR='__timeout';
 	const AUTH_ABSOLUTE_TIMEOUT_VAR='__absolute_timeout';
-
+	public $type=0;
 	/**
 	 * @var boolean whether to enable cookie-based login. Defaults to false.
 	 */

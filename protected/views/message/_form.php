@@ -16,7 +16,7 @@
 )); ?>
 
 	<?php 
-	    $model->user = Yii::app()->user->name;
+	    $model->user = Yii::app()->user->username;
 	    $today = getdate();
 		$hoy = $today['year']."/".$today['mon']."/".$today['mday'];
 		$model->sent_date = $hoy

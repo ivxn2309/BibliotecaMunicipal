@@ -66,7 +66,7 @@ class MessageController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Message']) && Yii::app()->user->type === "1")
+		if(isset($_POST['Message']))
 		{
 			$model->attributes=$_POST['Message'];
 			if($model->save())

@@ -20,7 +20,9 @@ class UserIdentity extends CUserIdentity
 		else{
 			$this->_id=$user->username;
 			$this->setState('type', $user->usertype);
+			$this->setState('type2', $user->usertype);
 			$this->setState('name', $user->firstname);
+			$this->setState('username', $user->username);
 			$this->setState('email', $user->email);
 			$this->errorCode=self::ERROR_NONE;
 		}

@@ -53,10 +53,19 @@
 	<section class="grid-wrap" >
 		<header class="grid col-full">
 			<nav class="nav">
-				<?php $this->widget('zii.widgets.CMenu',array(
+				<?php 
+					$biblio = 0;
+					if(isset(Yii::app()->user->type2)) {
+						$biblio = 1;
+						if(Yii::app()->user->type2 > 0){
+							$biblio = 2;
+						}
+					}
+
+					$this->widget('zii.widgets.CMenu',array(
 					'items'=>array(
 						array('label'=>'Inicio', 'url'=>array('site/index')),
-						array('label'=>'Ver', 'url'=>array('#'), 'items'=>array(
+						array('label'=>'Ver', 'visible'=>$biblio==2?true:false, 'url'=>array('#'), 'items'=>array(
 							array('label'=>'Usuarios', 'url'=>array('user/index')),
 							array('label'=>'Préstamos', 'url'=>array('loan/index')),
 							array('label'=>'Mensajes', 'url'=>array('message/index')),
@@ -80,7 +89,7 @@
 							array('label'=>'Video', 'url'=>array('site/page', 'view'=>'video')),
 						)),
 						array('label'=>'Contacto', 'url'=>array('message/create'), 'items'=>array(
-							array('label'=>'Mensajes', 'url'=>array('message/create')),
+							array('label'=>'Mensajes', 'visible'=>$biblio==1?true:false, 'url'=>array('message/create')),
 							array('label'=>'Acerca de', 'url'=>array('/site/page', 'view'=>'about')),
 						)),
 						array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
@@ -131,7 +140,7 @@
 
 <!-- Javascript - jQuery -->
 <script src="http://code.jquery.com/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery-1.7.2.min.js"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery-1.11.3.min.js"><\/script>')</script>
 
 <!--[if (gte IE 6)&(lte IE 8)]>
 <script src="js/selectivizr.js"></script>
@@ -139,6 +148,7 @@
 
 <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery.flexslider-min.js"></script>
 <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/scripts.js"></script>
+<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/responsiveslides.min.js"></script>
 
 <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID. -->
 <script>

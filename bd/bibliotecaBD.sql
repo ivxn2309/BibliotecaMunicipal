@@ -211,11 +211,6 @@ INSERT INTO Game VALUES (NULL, "La liga",
     "La liga es un juego que tiene especial aceptación entre las niñas. Para llevarlo a cabo, se utiliza una liga elástica unida con un nudo por los extremos. Dos niñas se ponen en los laterales sujetándola con las piernas abiertas de modo que quede un espacio en el medio para saltar. Entonces, una o varias niñas tienen que realizar determinados ejercicios al ritmo de canciones y palmadas que interpretan las participaciones. En el momento en que una falla el ejercicio, pierde pasando a sujetar la liga.", 
     NULL, 1);
 
--- ------------------------------------------------
--- Recommendation
--- ------------------------------------------------
-INSERT INTO Recommendation VALUES (NULL, 25, "2015/5/22", "El presidente", 1);
--- ------------------------------------------------
 -- Book
 -- ------------------------------------------------
 INSERT INTO Book VALUES (NULL, "70.4074", "La especialización en el periodísmo", "Pedro Orive y Concha Fagoaga", "NULL", "Ej 1", "Obras generales", "especializacion.png", 1);
@@ -330,6 +325,12 @@ INSERT INTO Book VALUES (NULL, "972.01A744", "¿Has sido tú, kasimir?", "Achim 
 INSERT INTO Book VALUES (NULL, "972.01A744", "La época liberai", "Fabiola García Rubio", "V. 1", "Ej. 1", "Infántil", "epoca.png", 1);
 
 -- ------------------------------------------------
+-- Recommendation
+-- ------------------------------------------------
+INSERT INTO Recommendation VALUES (NULL, 25, "2015/5/22", "El presidente", 1);
+-- ------------------------------------------------
+
+-- ------------------------------------------------
 -- User
 -- ------------------------------------------------
 INSERT INTO User VALUES ("gova_ac35", SHA("biblio_1167"), "Giovanni", "Aguayo Cerros", "C. del rosal #35, lomas doradas, Villanueva, Zac", "4991020523", 15, "Imelda Cerros Muro", "gova_35@yahoo.com.mx", 0, 1);
@@ -420,3 +421,5 @@ INSERT INTO User VALUES ("sandy_hr13", SHA("biblio_1167"), "Sandra Yareni", "Her
 INSERT INTO User VALUES ("mario_hm29", SHA("biblio_1167"), "Mario Roberto", "Hernández Murillo", "C. Primavera #29, COL. Loma dorada, Villanueva Zac.", "4991003323", 12, "Ma Guadalupe Murillo Rondán", "mario_29@hotmail.com", 0, 1);
 INSERT INTO User VALUES ("jazmín_hm29", SHA("biblio_1167"), "Jazmín", "Hernández Murillo", "C. Primavera #29, COL. Loma dorada, Villanueva Zac.", "4991003323", 15, "Ma Guadalupe Murillo Rondán", "jazmín_29@hotmail.com", 0, 1);
 INSERT INTO User VALUES ("lizeth_hm29", SHA("biblio_1167"), "Lizeth", "Hernández Murillo", "C. Primavera #29, COL. Loma dorada, Villanueva Zac.", "4991003323", 10, "Ma Guadalupe Murillo Rondán", "lizeth_29@yahoo.com.mx", 0, 1);
+-- Bibliotecario
+INSERT INTO User VALUES ("bibliotecario", SHA("villanueva_1167"), "Bibliotecario", "", "C. Matamoros #41, COL. Centro, Villanueva Zac.", "4999262717", 0, " ", "bmpvzvillanueva@hotmail.com", 1, 1);

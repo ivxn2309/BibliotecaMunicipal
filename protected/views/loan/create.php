@@ -3,16 +3,12 @@
 /* @var $model Loan */
 
 $this->breadcrumbs=array(
-	'Loans'=>array('index'),
-	'Create',
+	'Prestamos'=>array('index'),
+	'Crear',
 );
 
-$this->menu=array(
-	array('label'=>'List Loan', 'url'=>array('index')),
-	array('label'=>'Manage Loan', 'url'=>array('admin')),
-);
 ?>
 
-<h1>Create Loan</h1>
+<h2>Crear préstamo</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
